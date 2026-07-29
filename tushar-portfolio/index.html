@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tushar R Jadhav — Security Researcher & Creative Developer</title>
+  <meta name="description"
+    content="Portfolio of Tushar R Jadhav — Cybersecurity student, ethical hacker, and creative developer crafting insane digital experiences." />
+  <link rel="canonical" href="https://tusharjadhav.dev/" />
+
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://api.github.com https://formspree.io; img-src 'self' data:; base-uri 'self'; form-action https://formspree.io;" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tusharjadhav.dev/" />
+  <meta property="og:title" content="Tushar R Jadhav — Security Researcher & Creative Developer" />
+  <meta property="og:description"
+    content="Cybersecurity student, ethical hacker, and creative developer crafting digital experiences." />
+  <meta property="og:image" content="https://tusharjadhav.dev/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://tusharjadhav.dev/" />
+  <meta name="twitter:title" content="Tushar R Jadhav — Security Researcher & Creative Developer" />
+  <meta name="twitter:description"
+    content="Cybersecurity student, ethical hacker, and creative developer crafting digital experiences." />
+  <meta name="twitter:image" content="https://tusharjadhav.dev/og-image.png" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Tushar R Jadhav",
+    "url": "https://tusharjadhav.dev/",
+    "sameAs": [
+      "https://github.com/sologamer9753-create",
+      "https://www.linkedin.com/in/tushar-jadhav-ba816629b/"
+    ],
+    "jobTitle": "Security Researcher & Creative Developer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Shogun Creations"
+    },
+    "knowsAbout": ["Network Security", "Ethical Hacking", "Penetration Testing", "Three.js", "WebGL", "GSAP"]
+  }
+  </script>
+
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+
+  <!-- SKIP TO CONTENT -->
+  <a href="#hero" class="skip-link">Skip to content</a>
+
+  <!-- BOOT SCREEN -->
+  <div id="boot-screen">
+    <div class="boot-terminal">
+      <div class="boot-header">
+        <span>SHOGUN SECURE OS v3.7.1</span>
+        <span>[CLASSIFIED CLEARANCE]</span>
+      </div>
+      <div id="boot-lines" class="boot-lines"></div>
+      <div class="boot-cursor">_</div>
+    </div>
+  </div>
+
+  <!-- MATRIX RAIN CANVAS -->
+  <canvas id="matrix-rain"></canvas>
+
+  <!-- CRT OVERLAY -->
+  <div id="crt-overlay"></div>
+
+  <!-- SCANLINE -->
+  <div id="scanline"></div>
+
+  <!-- MAIN SITE -->
+  <div id="site" class="site hidden">
+
+    <main>
+      <nav class="nav">
+        <div class="nav-logo">
+          <span class="nav-logo-bracket">[</span>
+          <span class="nav-logo-text">TUSHAR</span>
+          <span class="nav-logo-bracket">]</span>
+        </div>
+        <div class="nav-links">
+          <a href="#hero" class="nav-link active" data-section="hero">~/home</a>
+          <a href="#about" class="nav-link" data-section="about">~/about</a>
+          <a href="#skills" class="nav-link" data-section="skills">~/skills</a>
+          <a href="#projects" class="nav-link" data-section="projects">~/projects</a>
+          <a href="#contact" class="nav-link" data-section="contact">~/contact</a>
+        </div>
+        <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Toggle menu" aria-expanded="false"
+          aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+
+      <!-- MOBILE MENU -->
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="#hero" class="mobile-link" data-section="hero">~/home</a>
+        <a href="#about" class="mobile-link" data-section="about">~/about</a>
+        <a href="#skills" class="mobile-link" data-section="skills">~/skills</a>
+        <a href="#projects" class="mobile-link" data-section="projects">~/projects</a>
+        <a href="#contact" class="mobile-link" data-section="contact">~/contact</a>
+      </div>
+
+      <!-- HERO -->
+      <section id="hero" class="section hero-section">
+        <div id="three-canvas-container" class="three-canvas-container"></div>
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="blinking-dot"></span>
+            <span>SECURE CONNECTION ESTABLISHED</span>
+          </div>
+          <h1 class="hero-name glitch" data-text="TUSHAR R JADHAV">
+            TUSHAR R JADHAV
+          </h1>
+          <div class="hero-terminal">
+            <span class="prompt">tushar@shogun:~$</span>
+            <span id="hero-typewriter" class="typewriter-text"></span>
+            <span class="cursor">█</span>
+          </div>
+          <div class="hero-subtitle">
+            <span class="tag">NETWORK SECURITY</span>
+            <span class="tag-separator">//</span>
+            <span class="tag">ETHICAL HACKING</span>
+            <span class="tag-separator">//</span>
+            <span class="tag">CREATIVE DEV</span>
+          </div>
+          <div class="hero-cta">
+            <a href="#projects" class="btn-primary">
+              <span class="btn-glitch">VIEW MISSIONS</span>
+            </a>
+            <a href="#contact" class="btn-secondary">
+              <span>ENCRYPT MESSAGE</span>
+            </a>
+          </div>
+        </div>
+        <div class="scroll-indicator">
+          <div class="scroll-line"></div>
+          <span>SCROLL</span>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="section about-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">// SECTION 01</span>
+            <h2 class="section-title glitch" data-text="ABOUT_ME">ABOUT_ME</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="about-grid">
+            <div class="about-terminal slide-left">
+              <div class="terminal-bar">
+                <div class="terminal-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <span class="terminal-title">tushar@shogun:~ cat profile.sys</span>
+              </div>
+              <div class="terminal-body about-text" id="about-text">
+                <p><span class="green">&gt;</span> Initializing profile stream...</p>
+                <p><span class="green">&gt;</span> Name: Tushar R Jadhav</p>
+                <p><span class="green">&gt;</span> Handle: sologamer9753</p>
+                <p><span class="green">&gt;</span> Focus: Security Research & Creative Development</p>
+                <p><span class="green">&gt;</span> Entity: Shogun Creations (Founder)</p>
+                <br />
+                <p><span class="cyan">&gt;</span> I am a cybersecurity student specializing in network security, ethical
+                  hacking, and penetration testing — while designing high-end digital experiences using Three.js, WebGL,
+                  and modern front-end technologies.</p>
+                <br />
+                <p><span class="cyan">&gt;</span> I analyze complex systems to find vulnerabilities and craft robust,
+                  resilient visual architectures that elevate digital products.</p>
+                <br />
+                <p><span class="green">&gt;</span> Status: <span class="green blink">ACTIVE PROTOCOL</span></p>
+                <p><span class="green">&gt;</span> Security Clearance: <span class="green">LEVEL 5 — UNRESTRICTED</span>
+                </p>
+              </div>
+            </div>
+            <div class="about-stats slide-right">
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <div class="stat-number">VULN</div>
+                <div class="stat-label">RESEARCH TRACK</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path
+                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
+                </div>
+                <div class="stat-number">SELF</div>
+                <div class="stat-label">TAUGHT DEV</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <div class="stat-number">OPEN</div>
+                <div class="stat-label">SOURCE BUILDER</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                </div>
+                <div class="stat-number">AES-256</div>
+                <div class="stat-label">ENCRYPTED WORKFLOW</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="section skills-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">// SECTION 02</span>
+            <h2 class="section-title glitch" data-text="SKILLS_ARSENAL">SKILLS_ARSENAL</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-column slide-left">
+              <h3 class="skill-category"><span class="green">&gt;</span> SECURITY & OFFENSE</h3>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">Network Security</span>
+                </div>
+                <p class="skill-desc">TCP/IP, Firewalls, IDS/IPS, Wireshark, Packet Analysis</p>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">Ethical Hacking</span>
+                </div>
+                <p class="skill-desc">Recon, Exploitation, Social Engineering, OSINT</p>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">Penetration Testing</span>
+                </div>
+                <p class="skill-desc">Kali Linux, Metasploit, Burp Suite, Nmap</p>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">Cryptography</span>
+                </div>
+                <p class="skill-desc">Encryption, Hashing, PKI, SSL/TLS, Steganography</p>
+              </div>
+            </div>
+            <div class="skill-column slide-right">
+              <h3 class="skill-category"><span class="cyan">&gt;</span> DEVELOPMENT & CREATIVE MASTER</h3>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">Three.js / WebGL</span>
+                </div>
+                <p class="skill-desc">Particles, Shaders, 3D Scenes, Post-Processing</p>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">GSAP / Animations</span>
+                </div>
+                <p class="skill-desc">ScrollTrigger, Timelines, Morphing, Micro-Interactions</p>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">HTML / CSS / JS</span>
+                </div>
+                <p class="skill-desc">Vanilla mastery, Responsive Design, CSS Architecture</p>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">React / Next.js</span>
+                </div>
+                <p class="skill-desc">Components, Hooks, SSR, State Management</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="section projects-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">// SECTION 03</span>
+            <h2 class="section-title glitch" data-text="MISSION_FILES">MISSION_FILES</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="projects-grid" id="projects-grid">
+            <div class="loading-projects">
+              <span class="spinner"></span>
+              <span>FETCHING FROM GITHUB API...</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section contact-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">// SECTION 04</span>
+            <h2 class="section-title glitch" data-text="ENCRYPT_MESSAGE">ENCRYPT_MESSAGE</h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="contact-grid">
+            <div class="contact-form-wrapper slide-left">
+              <div class="terminal-bar">
+                <div class="terminal-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <span class="terminal-title">secure_transmission.exe</span>
+              </div>
+              <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <!-- Honeypot spam protection -->
+                <input type="checkbox" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+                <div class="form-group">
+                  <label class="form-label"><span class="green">$</span> SENDER_ID:</label>
+                  <input type="text" name="name" class="form-input" placeholder="Your name..." required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label"><span class="green">$</span> ENCRYPTION_KEY:</label>
+                  <input type="email" name="email" class="form-input" placeholder="your@email.com" required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label"><span class="green">$</span> TRANSMISSION_BODY:</label>
+                  <textarea name="message" class="form-input form-textarea" placeholder="Type your encrypted message..."
+                    rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary btn-submit">
+                  <span class="btn-glitch">ENCRYPT & TRANSMIT</span>
+                </button>
+              </form>
+            </div>
+            <div class="contact-links slide-right">
+              <h3 class="contact-links-title"><span class="cyan">&gt;</span> DIRECT_CHANNELS</h3>
+              <a href="https://github.com/sologamer9753-create" target="_blank" rel="noopener" class="contact-link">
+                <span class="link-prefix">$</span>
+                <span class="link-command">git clone</span>
+                <span class="link-url">https://github.com/sologamer9753-create</span>
+              </a>
+              <a href="https://www.linkedin.com/in/tushar-jadhav-ba816629b/" target="_blank" rel="noopener"
+                class="contact-link">
+                <span class="link-prefix">$</span>
+                <span class="link-command">curl</span>
+                <span class="link-url">linkedin.com/in/tushar-jadhav</span>
+              </a>
+              <div class="contact-link">
+                <span class="link-prefix">$</span>
+                <span class="link-command">ssh</span>
+                <span class="link-url">tushar@shogun-creations.in</span>
+              </div>
+              <div class="contact-status">
+                <div class="status-item">
+                  <span class="status-dot green-dot"></span>
+                  <span>SYSTEM: ONLINE & PROTECTED</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-dot green-dot"></span>
+                  <span>ENCRYPTION: AES-256-GCM</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-dot green-dot"></span>
+                  <span>UPTIME: 99.97% PROTOCOL</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="container footer-inner">
+          <span class="footer-text">
+            <span class="green">&lt;</span> BUILT BY TUSHAR R JADHAV <span class="green">/&gt;</span>
+          </span>
+          <span class="footer-text">SECURITY IS NOT A PRODUCT, IT'S A PROCESS.</span>
+          <span class="footer-text">
+            <span class="cyan">v3.7.1</span> — ALL SYSTEMS NOMINAL
+          </span>
+        </div>
+      </footer>
+
+    </main>
+
+    <!-- FLOATING TERMINAL -->
+    <div class="floating-terminal" id="floating-terminal" role="dialog" aria-label="Floating terminal"
+      aria-hidden="true">
+      <div class="ft-header" id="ft-drag-handle">
+        <span class="ft-title">tushar@shogun:~</span>
+        <div class="ft-controls">
+          <button class="ft-btn ft-minimize" id="ft-minimize">—</button>
+          <button class="ft-btn ft-close" id="ft-close">✕</button>
+        </div>
+      </div>
+      <div class="ft-body" id="ft-body">
+        <div class="ft-output" id="ft-output">
+          <p class="ft-line"><span class="cyan">Welcome to Tushar's security terminal.</span></p>
+          <p class="ft-line">Type <span class="green">help</span> for available commands.</p>
+          <p class="ft-line">&nbsp;</p>
+        </div>
+        <div class="ft-input-line">
+          <span class="ft-prompt">tushar@shogun:~$</span>
+          <input type="text" class="ft-input" id="ft-input" autofocus />
+        </div>
+      </div>
+    </div>
+
+    <!-- TERMINAL TOGGLE -->
+    <button class="terminal-toggle" id="terminal-toggle" title="Open terminal" aria-label="Open floating terminal"
+      aria-expanded="false" aria-controls="floating-terminal">
+      <span class="terminal-toggle-icon">&gt;_</span>
+    </button>
+
+  </div>
+
+  <!-- EASTER EGG OVERLAY -->
+  <div id="easter-egg" class="easter-egg-overlay">
+    <div class="skull">⚡</div>
+    <div class="pwned-text">SYSTEM OVERRIDE DETECTED</div>
+    <div class="pwned-sub">Access Level: 1337 — High Command Granted.</div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
