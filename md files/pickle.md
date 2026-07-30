@@ -63,8 +63,9 @@ Cross-reference `deepseekreview.md` and `nemotron3review.md` against the actual 
 | 6 | **CSS monolithic (2325 lines)** | `style.css` | Single file with all styles. Should be split into `base.css`, `components.css`, `sections.css`, `animations.css` |
 | 7 | **Skill bar fill pattern** | `main.js` | Uses `data-width="85"` (no `%`), JS appends `%` at runtime. Fragile if HTML structure changes |
 | 8 | **Project language colors** | `github-projects.js` | Only 5 languages mapped (`JavaScript`, `TypeScript`, `Python`, `HTML`, `CSS`). Others show no colored dot |
-| 9 | **No Three.js error boundary** | `main.js` | If WebGL fails (headless browser, old GPU, software rendering), hero section is completely blank with no fallback |
-| 10 | **Scanline animation never pauses** | `style.css` line 149-164 | `animation: scanline 6s linear infinite` runs forever even when tab is hidden. Not wired to `document.visibilityState` |
+| 9 | **Three.js BFCache particle freeze** | `three-particles.js` | Cleanup disposed renderer/geometry/material & cleared innerHTML, killed BFCache restore. **Fixed**: cleanup only cancels RAF + removes listeners; `animate()` stops RAF loop when `document.hidden`; `_pause(false)` can resume because state (`points`, `renderer`) is preserved |
+| 10 | **Matrix rain BFCache freeze** | `matrix-rain.js` | Cleanup nulled `canvas._pause`, restoring from BFCache couldn't resume. **Fixed**: `draw()` early-returns (stops RAF) when `document.hidden`; cleanup no longer removes `_pause` |
+| 10b | **Scanline starts paused** | `main.js` | `visibility-state` attribute never initialized on page load; CSS `html:not([visibility-state="visible"]) #scanline` matched on startup. **Fixed**: `document.documentElement.setAttribute('visibility-state', 'visible')` at module top |
 
 ---
 
