@@ -34,7 +34,7 @@ function resize(canvas) {
 }
 
 function draw() {
-  if (!ctx) return;
+  if (!ctx || document.hidden) { animationId = null; return; }
   
   ctx.fillStyle = 'rgba(6, 7, 19, 0.08)';
   ctx.fillRect(0, 0, w, h);
@@ -94,7 +94,6 @@ export function initMatrixRain() {
       if (animationId) cancelAnimationFrame(animationId);
       if (resizeTimeout) clearTimeout(resizeTimeout);
       window.removeEventListener('resize', onResize);
-      canvas._pause = null;
     }
   };
 }

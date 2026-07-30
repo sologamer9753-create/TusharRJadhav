@@ -29,12 +29,15 @@ window.addEventListener('resize', () => {
 // ─── STATE ───────────────────────────────────────
 let cleanupFns = [];
 
+// Initialize visibility state for scanline/etc
+document.documentElement.setAttribute('visibility-state', 'visible');
+
 // ─── BOOT ────────────────────────────────────────
 runBootSequence(() => {
   document.getElementById('site')?.classList.remove('hidden');
   
   cleanupFns.push(initMatrixRain());
-  cleanupFns.push(initThreeParticles());
+  try { cleanupFns.push(initThreeParticles()); } catch (e) { console.warn('Three.js init failed:', e); }
   cleanupFns.push(initTerminal());
 
   const ftContainer = document.getElementById('floating-terminal');
@@ -72,18 +75,58 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
+// Resume animations after BFCache restore (back/forward navigation)
+window.addEventListener('pageshow', () => {
+  document.documentElement.setAttribute('visibility-state', 'visible');
+  const hidden = false;
+
+  const matrixCanvas = document.getElementById('matrix-rain');
+  if (matrixCanvas && matrixCanvas._pause) {
+    matrixCanvas._pause(hidden);
+  }
+
+  const threeContainer = document.getElementById('three-canvas-container');
+  if (threeContainer && threeContainer._pause) {
+    threeContainer._pause(hidden);
+  }
+});
+
+const TYPEWRITER_TEXTS = [
+  'tushar@shogun:~$ ./whoami',
+  'tushar@shogun:~$ cat /etc/passion',
+  'tushar@shogun:~$ ./hack_the_planet',
+];
+
 // ─── TYPEWRITER ──────────────────────────────────
 function initTypewriter() {
   const el = document.querySelector('.typewriter-text');
   if (!el) return;
 
-  const fullText = 'tushar@shogun:~$ ./whoami';
-  let i = 0;
+  let textIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
 
   function type() {
-    if (i <= fullText.length) {
-      el.textContent = fullText.slice(0, i);
-      i++;
+    const fullText = TYPEWRITER_TEXTS[textIndex];
+
+    if (isDeleting) {
+      charIndex--;
+      el.textContent = fullText.slice(0, charIndex);
+      if (charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % TYPEWRITER_TEXTS.length;
+        setTimeout(type, 400);
+        return;
+      }
+      setTimeout(type, 30);
+    } else {
+      charIndex++;
+      el.textContent = fullText.slice(0, charIndex);
+      if (charIndex === fullText.length) {
+        isDeleting = true;
+        setTimeout(type, 2000);
+        return;
+      }
       setTimeout(type, 70 + Math.random() * 50);
     }
   }
@@ -93,38 +136,28 @@ function initTypewriter() {
 
 // ─── CONSOLIDATED SCROLL OBSERVERS ───────────────
 function initScrollObservers() {
-  // Single observer for reveal animations
-  const revealObserver = new IntersectionObserver(
+  const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('about-text')) {
+            const lines = entry.target.querySelectorAll('p');
+            lines.forEach((p, i) => {
+              setTimeout(() => p.classList.add('visible'), i * 150);
+            });
+          } else {
+            entry.target.classList.add('visible');
+          }
+          observer.unobserve(entry.target);
         }
       });
     },
     { threshold: INTERSECTION_THRESHOLD }
   );
 
-  document.querySelectorAll('.reveal, .slide-left, .slide-right, .project-card').forEach((el) => {
-    revealObserver.observe(el);
+  document.querySelectorAll('.reveal, .slide-left, .slide-right, .project-card, .about-text').forEach((el) => {
+    observer.observe(el);
   });
-
-  // About terminal line-by-line reveal
-  const aboutText = document.querySelector('.about-text');
-  if (aboutText) {
-    const aboutObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const lines = entry.target.querySelectorAll('p');
-          lines.forEach((p, i) => {
-            setTimeout(() => p.classList.add('visible'), i * 150);
-          });
-          aboutObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    aboutObserver.observe(aboutText);
-  }
 }
 
 function initEasterEgg() {

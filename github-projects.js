@@ -106,6 +106,24 @@ export async function fetchProjects() {
   attemptFetch();
 }
 
+const LANGUAGE_COLORS = {
+  HTML: '#e34c26',
+  CSS: '#563d7c',
+  JavaScript: '#f1e05a',
+  Python: '#3572A5',
+  TypeScript: '#2b7489',
+};
+
+const KNOWN_LANGS = new Set(Object.keys(LANGUAGE_COLORS));
+
+function hashColor(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return `hsl(${Math.abs(hash) % 360}, 60%, 50%)`;
+}
+
 function createProjectCard(repo, index) {
   const card = document.createElement('div');
   card.className = 'project-card';
@@ -132,7 +150,7 @@ function createProjectCard(repo, index) {
     <p class="project-desc">${desc}</p>
     <div class="project-meta">
       <span class="project-lang">
-        <span class="lang-dot ${lang}"></span>
+        <span class="lang-dot" style="background: ${KNOWN_LANGS.has(lang) ? LANGUAGE_COLORS[lang] : hashColor(lang)}"></span>
         ${lang}
       </span>
       ${stars > 0 ? `<span class="project-stat">★ ${stars}</span>` : ''}

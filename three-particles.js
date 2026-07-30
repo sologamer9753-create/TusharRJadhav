@@ -197,12 +197,23 @@ export function initThreeParticles() {
   }
   document.addEventListener('touchmove', onTouchMove, { passive: true });
 
-  // Pause on visibility change (tab hidden)
-  let isVisible = true;
-  function onVisibilityChange() {
-    isVisible = !document.hidden;
+  // Pause when tab hidden — animate() checks document.hidden directly
+  
+  // Handle BFCache (back/forward cache) — some browsers skip visibilitychange on restore
+  function onPageShow() {
+    if (!animationId && points) animate();
   }
-  document.addEventListener('visibilitychange', onVisibilityChange);
+  window.addEventListener('pageshow', onPageShow);
+
+  // WebGL context recovery
+  function onContextLost(e) {
+    e.preventDefault();
+  }
+  function onContextRestored() {
+    if (!animationId && points) animate();
+  }
+  renderer.domElement.addEventListener('webglcontextlost', onContextLost);
+  renderer.domElement.addEventListener('webglcontextrestored', onContextRestored);
 
   const resizeObserver = new ResizeObserver(() => {
     if (!renderer || !camera || !container) return;
@@ -217,60 +228,60 @@ export function initThreeParticles() {
   const MORPH_SPEED = 0.003;
 
   function animate() {
+    if (document.hidden) { animationId = null; return; }
     animationId = requestAnimationFrame(animate);
-    
-    // Pause animation when tab is hidden
-    if (!isVisible) return;
-    
-    time += 0.005;
 
-    if (material) material.uniforms.uTime.value = time;
+    try {
+      time += 0.005;
 
-    mouse.x += (mouse.targetX - mouse.x) * 0.05;
-    mouse.y += (mouse.targetY - mouse.y) * 0.05;
+      if (material) material.uniforms.uTime.value = time;
 
-    morphProgress = Math.min(morphProgress + MORPH_SPEED, 1);
+      mouse.x += (mouse.targetX - mouse.x) * 0.05;
+      mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
-    const posAttr = geometry.getAttribute('position');
+      morphProgress = Math.min(morphProgress + MORPH_SPEED, 1);
 
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const i3 = i * 3;
+      const posAttr = geometry.getAttribute('position');
 
-      if (morphProgress < 1) {
-        const skullPoint = SKULL_POINTS[i % SKULL_POINTS.length];
-        const ease = easeInOutCubic(morphProgress);
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const i3 = i * 3;
 
-        posAttr.array[i3] += (skullPoint.x - posAttr.array[i3]) * ease * 0.02;
-        posAttr.array[i3 + 1] += (skullPoint.y - posAttr.array[i3 + 1]) * ease * 0.02;
-        posAttr.array[i3 + 2] += (skullPoint.z - posAttr.array[i3 + 2]) * ease * 0.02;
-      } else {
-        // Data-stream drift: horizontal flow
-        posAttr.array[i3] += velocities[i3] * 0.5;
-        posAttr.array[i3 + 1] += Math.sin(time * 0.3 + i * 0.07) * 0.004;
-        posAttr.array[i3 + 2] += Math.sin(time * 0.4 + i * 0.11) * 0.002;
+        if (morphProgress < 1) {
+          const skullPoint = SKULL_POINTS[i % SKULL_POINTS.length];
+          const ease = easeInOutCubic(morphProgress);
 
-        // Wrap around horizontally
-        if (posAttr.array[i3] > 12) posAttr.array[i3] = -12;
-        if (posAttr.array[i3] < -12) posAttr.array[i3] = 12;
+          posAttr.array[i3] += (skullPoint.x - posAttr.array[i3]) * ease * 0.02;
+          posAttr.array[i3 + 1] += (skullPoint.y - posAttr.array[i3 + 1]) * ease * 0.02;
+          posAttr.array[i3 + 2] += (skullPoint.z - posAttr.array[i3 + 2]) * ease * 0.02;
+        } else {
+          posAttr.array[i3] += velocities[i3] * 0.5;
+          posAttr.array[i3 + 1] += Math.sin(time * 0.3 + i * 0.07) * 0.004;
+          posAttr.array[i3 + 2] += Math.sin(time * 0.4 + i * 0.11) * 0.002;
+
+          if (posAttr.array[i3] > 12) posAttr.array[i3] = -12;
+          if (posAttr.array[i3] < -12) posAttr.array[i3] = 12;
+        }
+
+        const dx = posAttr.array[i3] - mouse.x * 5;
+        const dy = posAttr.array[i3 + 1] - mouse.y * 5;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 3) {
+          const force = (3 - dist) * 0.08;
+          posAttr.array[i3] += dx * force;
+          posAttr.array[i3 + 1] += dy * force;
+        }
       }
 
-      const dx = posAttr.array[i3] - mouse.x * 5;
-      const dy = posAttr.array[i3 + 1] - mouse.y * 5;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      posAttr.needsUpdate = true;
 
-      if (dist < 3) {
-        const force = (3 - dist) * 0.08;
-        posAttr.array[i3] += dx * force;
-        posAttr.array[i3 + 1] += dy * force;
-      }
+      points.rotation.y = time * 0.2 + mouse.x * 0.25;
+      points.rotation.x = mouse.y * 0.12;
+
+      renderer.render(scene, camera);
+    } catch (e) {
+      console.warn('Three.js render error — keeping RAF alive:', e);
     }
-
-    posAttr.needsUpdate = true;
-
-    points.rotation.y = time * 0.2 + mouse.x * 0.25;
-    points.rotation.x = mouse.y * 0.12;
-
-    renderer.render(scene, camera);
   }
 
   animate();
@@ -279,19 +290,15 @@ export function initThreeParticles() {
 
   return () => {
     if (animationId) cancelAnimationFrame(animationId);
+    animationId = null;
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('touchmove', onTouchMove);
-    document.removeEventListener('visibilitychange', onVisibilityChange);
+    window.removeEventListener('pageshow', onPageShow);
+    renderer?.domElement.removeEventListener('webglcontextlost', onContextLost);
+    renderer?.domElement.removeEventListener('webglcontextrestored', onContextRestored);
     resizeObserver.disconnect();
-    if (renderer) renderer.dispose();
-    if (geometry) geometry.dispose();
-    if (material) material.dispose();
-    if (container) container.innerHTML = '';
-    animationId = null;
-    points = null;
-    renderer = null;
-    geometry = null;
-    material = null;
+    // ponytail: don't dispose() or clear innerHTML — browser handles GPU
+    // cleanup on unload, and BFCache restore needs the scene alive.
   };
 }
 

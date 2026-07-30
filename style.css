@@ -23,6 +23,23 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   --font-display: 'Orbitron', sans-serif;
   --font-body: 'Inter', -apple-system, sans-serif;
+
+  /* Z-index layers */
+  --z-three: 0;
+  --z-bg-layer: 1;
+  --z-content: 2;
+  --z-top: 10;
+  --z-cat: 100;
+  --z-nav: 1000;
+  --z-mobile: 999;
+  --z-terminal: 5000;
+  --z-toggle: 4999;
+  --z-overlay: 9998;
+  --z-scanline: 9999;
+  --z-fullscreen: 10000;
+  --z-skip: 15000;
+  --z-glitch-1: -1;
+  --z-glitch-2: -2;
 }
 
 *,
@@ -85,7 +102,7 @@ body {
 #boot-screen {
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  z-index: var(--z-fullscreen);
   background: #000;
   display: flex;
   align-items: center;
@@ -170,7 +187,7 @@ body {
 #matrix-rain {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: var(--z-bg-layer);
   opacity: 0.1;
   pointer-events: none;
 }
@@ -179,7 +196,7 @@ body {
 #crt-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9998;
+  z-index: var(--z-overlay);
   pointer-events: none;
   background: repeating-linear-gradient(0deg,
       transparent,
@@ -195,7 +212,7 @@ body {
   width: 100%;
   height: 4px;
   background: linear-gradient(transparent, rgba(0, 255, 65, 0.12), transparent);
-  z-index: 9999;
+  z-index: var(--z-scanline);
   pointer-events: none;
   animation: scanline 6s linear infinite;
 }
@@ -225,7 +242,7 @@ html:not([visibility-state="visible"]) #scanline {
   position: fixed;
   top: -100%;
   left: 0;
-  z-index: 15000;
+  z-index: var(--z-skip);
   padding: 0.5rem 1.5rem;
   background: var(--green);
   color: #000;
@@ -246,7 +263,7 @@ html:not([visibility-state="visible"]) #scanline {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: var(--z-nav);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -360,7 +377,7 @@ html:not([visibility-state="visible"]) #scanline {
   background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(20px);
   padding: 1rem 2rem;
-  z-index: 999;
+  z-index: var(--z-mobile);
   flex-direction: column;
   gap: 0.5rem;
   border-bottom: 1px solid rgba(0, 255, 65, 0.1);
@@ -404,7 +421,7 @@ html:not([visibility-state="visible"]) #scanline {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  z-index: 2;
+  z-index: var(--z-content);
 }
 
 .hero-section::after {
@@ -422,7 +439,7 @@ html:not([visibility-state="visible"]) #scanline {
 .three-canvas-container {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: var(--z-three);
   pointer-events: none;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 92%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 92%);
@@ -436,7 +453,7 @@ html:not([visibility-state="visible"]) #scanline {
 
 .hero-content {
   position: relative;
-  z-index: 10;
+  z-index: var(--z-top);
   text-align: center;
   padding: 2rem;
 }
@@ -1289,7 +1306,7 @@ html:not([visibility-state="visible"]) #scanline {
   background: rgba(10, 10, 10, 0.96);
   border: 1px solid rgba(0, 255, 65, 0.2);
   border-radius: 8px;
-  z-index: 5000;
+  z-index: var(--z-terminal);
   display: flex;
   flex-direction: column;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px var(--green-glow);
@@ -1422,7 +1439,7 @@ html:not([visibility-state="visible"]) #scanline {
   position: fixed;
   bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   right: calc(20px + env(safe-area-inset-right, 0px));
-  z-index: 4999;
+  z-index: var(--z-toggle);
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -1463,13 +1480,13 @@ html:not([visibility-state="visible"]) #scanline {
 
 .glitch::before {
   color: var(--cyan);
-  z-index: -1;
+  z-index: var(--z-glitch-1);
   animation: glitch-1 3s infinite linear alternate-reverse;
 }
 
 .glitch::after {
   color: var(--red);
-  z-index: -2;
+  z-index: var(--z-glitch-2);
   animation: glitch-2 2s infinite linear alternate-reverse;
 }
 
@@ -1632,7 +1649,7 @@ html:not([visibility-state="visible"]) #scanline {
   position: absolute;
   bottom: 35px;
   right: 15px;
-  z-index: 100;
+  z-index: var(--z-cat);
   animation: catFloat 3s ease-in-out infinite;
   pointer-events: none;
   cursor: pointer;
@@ -2097,6 +2114,23 @@ html:not([visibility-state="visible"]) #scanline {
   .floating-terminal {
     bottom: 10px;
     height: 200px;
+  }
+}
+
+/* ═══ MOBILE BOOT SCREEN ═══ */
+@media (max-width: 480px) {
+  #boot-screen .boot-terminal {
+    width: 95%;
+    padding: 1rem;
+    font-size: clamp(0.65rem, 3.5vw, 0.85rem);
+  }
+  #boot-screen .boot-header {
+    font-size: 0.6rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  #boot-screen .boot-lines {
+    min-height: 150px;
   }
 }
 
