@@ -21,16 +21,26 @@ export function runBootSequence(onComplete) {
   const bootScreen = document.getElementById('boot-screen');
 
   let i = 0;
+  let skipped = false;
+
+  function finish() {
+    if (skipped) return;
+    skipped = true;
+    bootScreen.classList.add('fade-out');
+    setTimeout(() => {
+      bootScreen.style.display = 'none';
+      onComplete();
+    }, 500);
+  }
+
+  // Click/tap to skip boot
+  bootScreen.addEventListener('click', finish);
+  bootScreen.addEventListener('touchstart', finish, { passive: true });
 
   function printLine() {
+    if (skipped) return;
     if (i >= bootMessages.length) {
-      setTimeout(() => {
-        bootScreen.classList.add('fade-out');
-        setTimeout(() => {
-          bootScreen.style.display = 'none';
-          onComplete();
-        }, 500);
-      }, 400);
+      setTimeout(finish, 400);
       return;
     }
 

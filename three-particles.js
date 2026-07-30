@@ -67,8 +67,11 @@ export function initThreeParticles() {
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobile = window.innerWidth < 768;
-
-  if (prefersReducedMotion) {
+  const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
+  const isLowEnd = navigator.hardwareConcurrency <= 4 || navigator.deviceMemory <= 4;
+  
+  // Disable on very small screens or low-end devices
+  if (prefersReducedMotion || (isMobile && isLowEnd) || window.innerWidth < 400) {
     container.style.display = 'none';
     return () => { };
   }
@@ -77,12 +80,27 @@ export function initThreeParticles() {
   const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
   camera.position.z = 8;
 
-  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  try {
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile });
+  } catch (e) {
+    console.warn('WebGL not supported, disabling particles:', e);
+    container.style.display = 'none';
+    return () => { };
+  }
   renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
   container.appendChild(renderer.domElement);
 
-  const PARTICLE_COUNT = isMobile ? 600 : 1200;
+  // Adjust particle count based on device capability
+  let PARTICLE_COUNT;
+  if (isMobile) {
+    PARTICLE_COUNT = isLowEnd ? 300 : 500;
+  } else if (isTablet) {
+    PARTICLE_COUNT = 800;
+  } else {
+    PARTICLE_COUNT = isLowEnd ? 800 : 1200;
+  }
+  
   const SKULL_POINTS = generateSkullPoints(PARTICLE_COUNT);
   geometry = new THREE.BufferGeometry();
 
@@ -169,6 +187,22 @@ export function initThreeParticles() {
     mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
   }
   document.addEventListener('mousemove', onMouseMove);
+  
+  // Touch support for mobile
+  function onTouchMove(e) {
+    if (e.touches.length > 0) {
+      mouse.targetX = (e.touches[0].clientX / window.innerWidth) * 2 - 1;
+      mouse.targetY = -(e.touches[0].clientY / window.innerHeight) * 2 + 1;
+    }
+  }
+  document.addEventListener('touchmove', onTouchMove, { passive: true });
+
+  // Pause on visibility change (tab hidden)
+  let isVisible = true;
+  function onVisibilityChange() {
+    isVisible = !document.hidden;
+  }
+  document.addEventListener('visibilitychange', onVisibilityChange);
 
   const resizeObserver = new ResizeObserver(() => {
     if (!renderer || !camera || !container) return;
@@ -184,6 +218,10 @@ export function initThreeParticles() {
 
   function animate() {
     animationId = requestAnimationFrame(animate);
+    
+    // Pause animation when tab is hidden
+    if (!isVisible) return;
+    
     time += 0.005;
 
     if (material) material.uniforms.uTime.value = time;
@@ -242,6 +280,8 @@ export function initThreeParticles() {
   return () => {
     if (animationId) cancelAnimationFrame(animationId);
     document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('touchmove', onTouchMove);
+    document.removeEventListener('visibilitychange', onVisibilityChange);
     resizeObserver.disconnect();
     if (renderer) renderer.dispose();
     if (geometry) geometry.dispose();

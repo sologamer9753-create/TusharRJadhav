@@ -92,7 +92,10 @@ export function initTerminal() {
     terminal.classList.remove('minimized');
     terminal.setAttribute('aria-hidden', !isOpen);
     toggle.setAttribute('aria-expanded', isOpen);
-    if (isOpen) input.focus();
+    if (isOpen) {
+      // Small delay to let transition start before focusing
+      setTimeout(() => input.focus(), 100);
+    }
   }
   toggle.addEventListener('click', onToggleClick);
 
@@ -114,7 +117,26 @@ export function initTerminal() {
   }
   minimizeBtn.addEventListener('click', onMinimizeClick);
 
-  // Drag functionality with boundary clamping
+  // Handle viewport changes (mobile keyboard open/close)
+  function handleViewportChange() {
+    if (isOpen && !terminal.classList.contains('minimized')) {
+      const rect = terminal.getBoundingClientRect();
+      const maxY = window.innerHeight - rect.height;
+      const currentTop = parseFloat(terminal.style.top) || rect.top;
+      
+      if (currentTop > maxY) {
+        terminal.style.top = `${maxY}px`;
+      }
+    }
+  }
+  
+  let vpResizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(vpResizeTimeout);
+    vpResizeTimeout = setTimeout(handleViewportChange, 100);
+  });
+
+  // Drag functionality with boundary clamping and touch support
   let isDragging = false;
   let dragOffset = { x: 0, y: 0 };
 
@@ -123,15 +145,20 @@ export function initTerminal() {
   }
 
   function onDragStart(e) {
+    // Only drag from header, not buttons
+    if (e.target.closest('.ft-btn')) return;
+    
     isDragging = true;
     const pos = getPos(e);
     const rect = terminal.getBoundingClientRect();
     dragOffset.x = pos.x - rect.left;
     dragOffset.y = pos.y - rect.top;
     terminal.style.transition = 'none';
+    terminal.style.userSelect = 'none';
+    e.preventDefault();
   }
   dragHandle.addEventListener('mousedown', onDragStart);
-  dragHandle.addEventListener('touchstart', onDragStart, { passive: true });
+  dragHandle.addEventListener('touchstart', onDragStart, { passive: false });
 
   function onDragMove(e) {
     if (!isDragging) return;
@@ -144,16 +171,19 @@ export function initTerminal() {
     terminal.style.top = `${top}px`;
     terminal.style.right = 'auto';
     terminal.style.bottom = 'auto';
+    e.preventDefault();
   }
   document.addEventListener('mousemove', onDragMove);
-  document.addEventListener('touchmove', onDragMove, { passive: true });
+  document.addEventListener('touchmove', onDragMove, { passive: false });
 
   function onDragEnd() {
     isDragging = false;
     terminal.style.transition = '';
+    terminal.style.userSelect = '';
   }
   document.addEventListener('mouseup', onDragEnd);
   document.addEventListener('touchend', onDragEnd);
+  document.addEventListener('touchcancel', onDragEnd);
 
   // Command execution
   function onInputKeydown(e) {
@@ -205,6 +235,8 @@ export function initTerminal() {
     document.removeEventListener('touchmove', onDragMove);
     document.removeEventListener('mouseup', onDragEnd);
     document.removeEventListener('touchend', onDragEnd);
+    document.removeEventListener('touchcancel', onDragEnd);
+    window.removeEventListener('resize', handleViewportChange);
     input.removeEventListener('keydown', onInputKeydown);
   };
 }

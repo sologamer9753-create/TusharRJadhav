@@ -11,6 +11,20 @@ import { initCyberCat } from './cyber-cat.js';
 
 // ─── CONFIG ──────────────────────────────────────
 const INTERSECTION_THRESHOLD = 0.1;
+const IS_MOBILE = window.innerWidth < 768;
+const IS_TABLET = window.innerWidth >= 768 && window.innerWidth <= 1024;
+
+// ─── VIEWPORT HEIGHT FIX (mobile browser chrome) ───
+function setViewportHeight() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+setViewportHeight();
+let vhTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(vhTimeout);
+  vhTimeout = setTimeout(setViewportHeight, 150);
+});
 
 // ─── STATE ───────────────────────────────────────
 let cleanupFns = [];
@@ -135,25 +149,36 @@ function showEasterEgg() {
   if (!overlay) return;
   overlay.classList.add('visible');
 
-  setTimeout(() => {
+  const dismiss = () => overlay.classList.remove('visible');
+  const timer = setTimeout(dismiss, 3500);
+
+  // Dismiss on any interaction on mobile
+  overlay.addEventListener('click', dismiss, { once: true });
+  overlay.addEventListener('touchend', dismiss, { once: true });
+
+  // Store cleanup to prevent leaks
+  overlay._easterCleanup = () => {
+    clearTimeout(timer);
     overlay.classList.remove('visible');
-  }, 3500);
+  };
 }
 
 // ─── NAV ─────────────────────────────────────────
 function initNav() {
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
 
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          const id = `#${entry.target.id}`;
           navLinks.forEach((link) => {
-            link.classList.toggle(
-              'active',
-              link.getAttribute('href') === `#${entry.target.id}`
-            );
+            link.classList.toggle('active', link.getAttribute('href') === id);
+          });
+          mobileLinks.forEach((link) => {
+            link.classList.toggle('active', link.getAttribute('href') === id);
           });
         }
       });
@@ -172,7 +197,8 @@ function initMobileMenu() {
   const menu = document.getElementById('mobile-menu');
   if (!btn || !menu) return;
 
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
     const open = menu.classList.toggle('open');
     btn.classList.toggle('active', open);
     btn.setAttribute('aria-expanded', open);
@@ -184,6 +210,24 @@ function initMobileMenu() {
       btn.classList.remove('active');
       btn.setAttribute('aria-expanded', 'false');
     });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.remove('open');
+      btn.classList.remove('active');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.classList.contains('open')) {
+      menu.classList.remove('open');
+      btn.classList.remove('active');
+      btn.setAttribute('aria-expanded', 'false');
+    }
   });
 }
 

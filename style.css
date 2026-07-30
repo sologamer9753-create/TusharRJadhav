@@ -58,6 +58,7 @@ body {
   background: var(--bg);
   color: var(--white);
   overflow-x: hidden;
+  overscroll-behavior: none;
 }
 
 .hidden {
@@ -250,6 +251,9 @@ html:not([visibility-state="visible"]) #scanline {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
+  padding-top: calc(1rem + env(safe-area-inset-top, 0px));
+  padding-left: calc(2rem + env(safe-area-inset-left, 0px));
+  padding-right: calc(2rem + env(safe-area-inset-right, 0px));
   background: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(0, 255, 65, 0.12);
@@ -278,8 +282,13 @@ html:not([visibility-state="visible"]) #scanline {
 .nav-link {
   color: var(--gray);
   text-decoration: none;
-  font-size: 0.8rem;
-  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  padding: 0.6rem 1rem;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
   transition: all 0.3s ease;
   position: relative;
@@ -343,7 +352,7 @@ html:not([visibility-state="visible"]) #scanline {
 }
 
 .mobile-menu {
-  display: none;
+  display: flex;
   position: fixed;
   top: 60px;
   left: 0;
@@ -355,22 +364,34 @@ html:not([visibility-state="visible"]) #scanline {
   flex-direction: column;
   gap: 0.5rem;
   border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+  transform: translateY(-10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .mobile-menu.open {
-  display: flex;
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .mobile-link {
   color: var(--gray);
   text-decoration: none;
-  font-size: 1rem;
-  padding: 0.8rem;
+  font-size: 1.1rem;
+  padding: 1rem;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  transition: color 0.3s;
+  transition: color 0.3s, background 0.3s;
+  border-radius: 4px;
+  margin: 0 -0.5rem;
 }
 
-.mobile-link:hover {
+.mobile-link:hover,
+.mobile-link.active {
   color: var(--green);
 }
 
@@ -378,6 +399,7 @@ html:not([visibility-state="visible"]) #scanline {
 .hero-section {
   position: relative;
   min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -485,10 +507,13 @@ html:not([visibility-state="visible"]) #scanline {
 }
 
 .tag {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 2px;
   color: var(--gray);
-  padding: 0.3rem 0.8rem;
+  padding: 0.4rem 0.9rem;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
   border: 1px solid var(--gray-dim);
   border-radius: 2px;
   transition: all 0.3s;
@@ -515,13 +540,18 @@ html:not([visibility-state="visible"]) #scanline {
 .btn-primary,
 .btn-secondary {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   letter-spacing: 2px;
-  padding: 0.8rem 2rem;
+  padding: 1rem 2.5rem;
+  min-height: 48px;
+  min-width: 120px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -995,7 +1025,6 @@ html:not([visibility-state="visible"]) #scanline {
   color: var(--gray);
   line-height: 1.6;
   margin-bottom: 1.2rem;
-  min-height: 3.2rem;
 }
 
 .project-meta {
@@ -1054,11 +1083,14 @@ html:not([visibility-state="visible"]) #scanline {
 }
 
 .project-link {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 1px;
   color: var(--green);
   text-decoration: none;
-  padding: 0.3rem 0.8rem;
+  padding: 0.6rem 1rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   border: 1px solid rgba(0, 255, 65, 0.2);
   border-radius: 3px;
   transition: all 0.3s;
@@ -1118,10 +1150,11 @@ html:not([visibility-state="visible"]) #scanline {
   background: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
-  padding: 0.8rem 1rem;
+  padding: 1rem;
+  min-height: 48px;
   color: var(--green);
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 1rem;
   outline: none;
   transition: all 0.3s;
 }
@@ -1161,10 +1194,11 @@ html:not([visibility-state="visible"]) #scanline {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--gray);
   text-decoration: none;
-  padding: 0.8rem 1rem;
+  padding: 1rem;
+  min-height: 48px;
   background: var(--bg-card);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 4px;
@@ -1192,6 +1226,7 @@ html:not([visibility-state="visible"]) #scanline {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: min(280px, 30vw);
 }
 
 .contact-status {
@@ -1225,6 +1260,7 @@ html:not([visibility-state="visible"]) #scanline {
   position: relative;
   z-index: 2;
   padding: 2rem 0;
+  padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid rgba(0, 255, 65, 0.08);
 }
 
@@ -1245,10 +1281,10 @@ html:not([visibility-state="visible"]) #scanline {
 /* ═══ FLOATING TERMINAL ═══ */
 .floating-terminal {
   position: fixed;
-  bottom: 100px;
-  right: 20px;
+  bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  right: calc(20px + env(safe-area-inset-right, 0px));
   width: 420px;
-  max-width: calc(100vw - 40px);
+  max-width: calc(100vw - 40px - env(safe-area-inset-right, 0px));
   height: 320px;
   background: rgba(10, 10, 10, 0.96);
   border: 1px solid rgba(0, 255, 65, 0.2);
@@ -1384,8 +1420,8 @@ html:not([visibility-state="visible"]) #scanline {
 /* ═══ TERMINAL TOGGLE ═══ */
 .terminal-toggle {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  right: calc(20px + env(safe-area-inset-right, 0px));
   z-index: 4999;
   width: 48px;
   height: 48px;
@@ -1629,6 +1665,51 @@ html:not([visibility-state="visible"]) #scanline {
 }
 
 /* ═══ RESPONSIVE ═══ */
+/* Tablet Landscape (768px - 1024px) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .nav {
+    padding: 1rem 1.5rem;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+  .hero-name {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .floating-terminal {
+    width: 380px;
+    right: 15px;
+    bottom: 90px;
+  }
+}
+
+/* Tablet Portrait / Mobile Landscape (481px - 768px) */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -1638,72 +1719,441 @@ html:not([visibility-state="visible"]) #scanline {
     display: flex;
   }
 
-  .about-grid {
-    grid-template-columns: 1fr;
+  .hero-section {
+    min-height: 100vh;
   }
 
-  .skills-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
+  .hero-content {
+    padding: 1.5rem;
   }
 
   .hero-name {
     font-size: clamp(2rem, 8vw, 3rem);
+    letter-spacing: 2px;
+  }
+
+  .hero-terminal {
+    font-size: 0.85rem;
   }
 
   .hero-subtitle {
+    flex-direction: column;
     gap: 0.5rem;
   }
 
   .tag {
-    font-size: 0.6rem;
-    padding: 0.2rem 0.5rem;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.7rem;
   }
 
   .tag-separator {
     display: none;
   }
 
-  .about-stats {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .floating-terminal {
-    width: calc(100vw - 20px);
-    right: 10px;
-    bottom: 80px;
-    height: 260px;
-  }
-
-  .footer-inner {
+  .hero-cta {
     flex-direction: column;
-    text-align: center;
+    align-items: center;
+    gap: 0.75rem;
   }
-}
 
-@media (max-width: 480px) {
-  .container {
-    padding: 0 1rem;
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    max-width: 280px;
   }
 
   .section {
     padding: 4rem 0;
   }
 
-  .hero-cta {
-    flex-direction: column;
-    align-items: center;
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .about-terminal {
+    border-radius: 4px;
+  }
+
+  .terminal-body {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .stat-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.55rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-category {
+    font-size: 0.9rem;
+  }
+
+  .skill-name {
+    font-size: 0.8rem;
+  }
+
+  .skill-desc {
+    font-size: 0.65rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .project-card {
+    padding: 1.5rem;
+  }
+
+  .project-name {
+    font-size: 0.9rem;
+  }
+
+  .project-desc {
+    font-size: 0.75rem;
+  }
+
+  .contact-form {
+    padding: 1.25rem;
+  }
+
+  .form-input {
+    padding: 0.85rem 0.9rem;
+    font-size: 1rem; /* Prevents zoom on iOS */
+  }
+
+  .contact-link {
+    font-size: 0.8rem;
+    padding: 0.85rem 0.9rem;
+  }
+
+  .floating-terminal {
+    width: calc(100vw - 20px);
+    right: 10px;
+    left: 10px;
+    bottom: 70px;
+    height: 280px;
+    border-radius: 6px;
+  }
+
+  .ft-header {
+    padding: 0.4rem 0.7rem;
+  }
+
+  .ft-title {
+    font-size: 0.65rem;
+  }
+
+  .ft-btn {
+    width: 16px;
+    height: 16px;
+    font-size: 0.5rem;
+  }
+
+  .ft-output {
+    padding: 0.6rem;
+    font-size: 0.7rem;
+  }
+
+  .ft-prompt {
+    font-size: 0.7rem;
+  }
+
+  .ft-input {
+    font-size: 0.7rem;
+  }
+
+  .terminal-toggle {
+    bottom: 15px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .footer {
+    padding: 1.5rem 0;
+  }
+
+  .footer-text {
+    font-size: 0.6rem;
+  }
+}
+
+/* Mobile Portrait (≤ 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .nav {
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-logo-text {
+    font-size: 1rem;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .hero-name {
+    font-size: clamp(1.75rem, 9vw, 2.5rem);
+    letter-spacing: 1px;
+  }
+
+  .hero-tag {
+    font-size: 0.6rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  .hero-terminal {
+    font-size: 0.75rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
   }
 
   .about-stats {
     grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .stat-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .stat-number {
+    font-size: 1.4rem;
+  }
+
+  .skill-category {
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .skill-item {
+    margin-bottom: 1.25rem;
+  }
+
+  .project-card {
+    padding: 1.25rem;
+  }
+
+  .project-meta {
+    gap: 0.75rem;
+  }
+
+  .project-stat {
+    font-size: 0.65rem;
+  }
+
+  .project-link {
+    font-size: 0.65rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .contact-form-wrapper {
+    border-radius: 4px;
+  }
+
+  .contact-form {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .form-label {
+    font-size: 0.65rem;
+  }
+
+  .form-input {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .form-textarea {
+    min-height: 100px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .contact-links-title {
+    font-size: 0.85rem;
+  }
+
+  .contact-link {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+    gap: 0.4rem;
+  }
+
+  .link-url {
+    max-width: 140px;
+  }
+
+  .floating-terminal {
+    width: calc(100vw - 16px);
+    right: 8px;
+    left: 8px;
+    bottom: 60px;
+    height: 240px;
+    border-radius: 6px;
+  }
+
+  .ft-body {
+    min-height: 0;
+  }
+
+  .ft-output {
+    max-height: 140px;
+  }
+
+  .cyber-cat {
+    display: none; /* Hide on very small screens */
+  }
+
+  .terminal-toggle {
+    bottom: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Very Small Mobile (≤ 360px) */
+@media (max-width: 360px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .footer-text {
+    font-size: 0.55rem;
+  }
+
+  .hero-name {
+    font-size: clamp(1.25rem, 8vw, 1.75rem);
+  }
+
+  .tag {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.5rem;
+    min-height: 30px;
+  }
+}
+
+/* Large Mobile / Small Tablet Landscape (481px - 600px) */
+@media (max-width: 600px) and (orientation: landscape) {
+  .hero-section {
+    min-height: auto;
+    padding: 2rem 0;
+  }
+
+  .hero-content {
+    padding: 1rem;
+  }
+
+  .floating-terminal {
+    bottom: 10px;
+    height: 200px;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .project-card:hover,
+  .stat-card:hover,
+  .contact-link:hover,
+  .skill-item:hover,
+  .nav-link:hover {
+    transform: none;
+    box-shadow: none;
+    background: inherit;
+  }
+
+  .btn-primary:active,
+  .btn-secondary:active,
+  .project-link:active {
+    transform: scale(0.98);
+  }
+
+  .project-card:active {
+    transform: scale(0.99);
+  }
+
+  /* Increase hit areas on touch devices */
+  .nav-link,
+  .mobile-link,
+  .btn-primary,
+  .btn-secondary,
+  .project-link,
+  .contact-link,
+  .form-input,
+  .ft-btn,
+  .terminal-toggle {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  .tag {
+    min-height: 40px;
+  }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .three-canvas-container canvas {
+    image-rendering: pixelated;
+  }
+}
+
+/* Short screens — hide scroll indicator when it would overlap content */
+@media (max-height: 600px) {
+  .scroll-indicator {
+    display: none;
   }
 }
 

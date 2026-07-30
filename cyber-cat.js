@@ -296,8 +296,8 @@ export function initCyberCat(outputEl) {
 
   let bubbleTimeout;
 
-  // Cyber Glitch & Message on Click
-  container.addEventListener('click', () => {
+  // Cyber Glitch & Message on Click/Tap
+  function handleClick() {
     // Quick glitch flash
     catColor = '#00e5ff'; // Cyan glitch
     currentFrame = 'happy';
@@ -325,6 +325,17 @@ export function initCyberCat(outputEl) {
       else catColor = '#ff66b2';
       currentFrame = 'idle';
     }, 300);
+  }
+
+  let touchFired = false;
+  container.addEventListener('touchstart', (e) => {
+    touchFired = true;
+    handleClick();
+    e.preventDefault();
+  }, { passive: false });
+  container.addEventListener('click', (e) => {
+    if (touchFired) { touchFired = false; return; }
+    handleClick();
   });
 
   return () => {

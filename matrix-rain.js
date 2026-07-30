@@ -13,11 +13,20 @@ const COLOR_STREAM = [
 let animationId = null;
 let ctx = null;
 let w = 0, h = 0, columns = 0, drops = [], columnColors = [];
+let charSpacing = 18;
+let resizeTimeout = null;
+
+function debouncedResize(canvas) {
+  if (resizeTimeout) clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => resize(canvas), 150);
+}
 
 function resize(canvas) {
   w = canvas.width = window.innerWidth;
   h = canvas.height = window.innerHeight;
-  columns = Math.floor(w / 18);
+  const fontSize = Math.max(10, Math.min(14, Math.floor(w / 60)));
+  charSpacing = fontSize + 4;
+  columns = Math.floor(w / charSpacing);
   drops = Array(columns).fill(1);
   columnColors = Array.from({ length: columns }, () =>
     COLOR_STREAM[Math.floor(Math.random() * COLOR_STREAM.length)]
@@ -30,12 +39,13 @@ function draw() {
   ctx.fillStyle = 'rgba(6, 7, 19, 0.08)';
   ctx.fillRect(0, 0, w, h);
 
-  ctx.font = '14px JetBrains Mono, monospace';
+  const fontSize = charSpacing - 4;
+  ctx.font = `${fontSize}px JetBrains Mono, monospace`;
 
   for (let i = 0; i < columns; i++) {
     const char = CHARS[Math.floor(Math.random() * CHARS.length)];
-    const x = i * 18;
-    const y = drops[i] * 18;
+    const x = i * charSpacing;
+    const y = drops[i] * charSpacing;
 
     if (Math.random() > 0.85) {
       ctx.fillStyle = '#ffffff';
@@ -64,7 +74,8 @@ export function initMatrixRain() {
   
   ctx = canvas.getContext('2d');
   resize(canvas);
-  window.addEventListener('resize', () => resize(canvas));
+  const onResize = () => debouncedResize(canvas);
+  window.addEventListener('resize', onResize);
 
   draw();
 
@@ -81,7 +92,8 @@ export function initMatrixRain() {
   return {
     destroy: () => {
       if (animationId) cancelAnimationFrame(animationId);
-      window.removeEventListener('resize', () => resize(canvas));
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', onResize);
       canvas._pause = null;
     }
   };
