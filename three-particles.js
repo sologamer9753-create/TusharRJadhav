@@ -8,7 +8,6 @@ let points = null;
 let renderer = null;
 let geometry = null;
 let material = null;
-let onVisibilityChange = null;
 
 function generateSkullPoints(count) {
   const points = [];
@@ -299,14 +298,6 @@ export function initThreeParticles() {
     resizeObserver.disconnect();
     // ponytail: don't dispose() or clear innerHTML — browser handles GPU
     // cleanup on unload, and BFCache restore needs the scene alive.
-  };
-}
-
-// Expose pause function for visibility handling
-export function setThreeParticlesPause(callback) {
-  onVisibilityChange = callback;
-  return () => {
-    onVisibilityChange = null;
   };
 }
 

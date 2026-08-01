@@ -89,11 +89,9 @@ export function initMatrixRain() {
     }
   };
 
-  return {
-    destroy: () => {
-      if (animationId) cancelAnimationFrame(animationId);
-      if (resizeTimeout) clearTimeout(resizeTimeout);
-      window.removeEventListener('resize', onResize);
-    }
+  return () => {
+    if (animationId) cancelAnimationFrame(animationId);
+    if (resizeTimeout) clearTimeout(resizeTimeout);
+    window.removeEventListener('resize', onResize);
   };
 }

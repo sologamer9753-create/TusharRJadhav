@@ -49,7 +49,7 @@ export async function fetchProjects() {
       const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=10`, { headers });
       if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
 
-      const repos = await res.json();
+      const repos = (await res.json()).filter(repo => !repo.fork);
 
       if (repos.length === 0) {
         grid.innerHTML = '<div class="loading-projects">NO MISSIONS FOUND</div>';

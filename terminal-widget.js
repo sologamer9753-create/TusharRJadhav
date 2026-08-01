@@ -131,10 +131,11 @@ export function initTerminal() {
   }
   
   let vpResizeTimeout;
-  window.addEventListener('resize', () => {
+  function onViewportResize() {
     clearTimeout(vpResizeTimeout);
     vpResizeTimeout = setTimeout(handleViewportChange, 100);
-  });
+  }
+  window.addEventListener('resize', onViewportResize);
 
   // Drag functionality with boundary clamping and touch support
   let isDragging = false;
@@ -236,7 +237,7 @@ export function initTerminal() {
     document.removeEventListener('mouseup', onDragEnd);
     document.removeEventListener('touchend', onDragEnd);
     document.removeEventListener('touchcancel', onDragEnd);
-    window.removeEventListener('resize', handleViewportChange);
+    window.removeEventListener('resize', onViewportResize);
     input.removeEventListener('keydown', onInputKeydown);
   };
 }

@@ -4,15 +4,12 @@
 
 import { runBootSequence } from './boot-sequence.js';
 import { initMatrixRain } from './matrix-rain.js';
-import { initThreeParticles } from './three-particles.js';
 import { initTerminal } from './terminal-widget.js';
 import { fetchProjects } from './github-projects.js';
 import { initCyberCat } from './cyber-cat.js';
 
 // ─── CONFIG ──────────────────────────────────────
 const INTERSECTION_THRESHOLD = 0.1;
-const IS_MOBILE = window.innerWidth < 768;
-const IS_TABLET = window.innerWidth >= 768 && window.innerWidth <= 1024;
 
 // ─── VIEWPORT HEIGHT FIX (mobile browser chrome) ───
 function setViewportHeight() {
@@ -37,7 +34,12 @@ runBootSequence(() => {
   document.getElementById('site')?.classList.remove('hidden');
   
   cleanupFns.push(initMatrixRain());
-  try { cleanupFns.push(initThreeParticles()); } catch (e) { console.warn('Three.js init failed:', e); }
+  // Three.js is ~450KB — load lazily after first paint so the page is interactive sooner
+  import('./three-particles.js')
+    .then(({ initThreeParticles }) => {
+      try { cleanupFns.push(initThreeParticles()); } catch (e) { console.warn('Three.js init failed:', e); }
+    })
+    .catch((e) => console.warn('Three.js chunk failed to load:', e));
   cleanupFns.push(initTerminal());
 
   const ftContainer = document.getElementById('floating-terminal');
@@ -290,6 +292,8 @@ function initContactForm() {
           name: formData.get('name'),
           email: formData.get('email'),
           message: formData.get('message'),
+          // Honeypot — bots fill this hidden field; server silently drops it
+          _gotcha: formData.get('_gotcha'),
         })
       });
 
