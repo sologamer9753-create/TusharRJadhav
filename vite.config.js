@@ -31,7 +31,7 @@ export default defineConfig({
   plugins: [
     sitemap({
       hostname: SITE_URL,
-      dynamicRoutes: ['/', '/#about', '/#skills', '/#projects', '/#contact'],
+      dynamicRoutes: ['/#about', '/#skills', '/#projects', '/#contact'],
       lastmod: new Date().toISOString().split('T')[0],
       changefreq: 'weekly',
       priority: 0.8,

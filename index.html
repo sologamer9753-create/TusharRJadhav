@@ -11,7 +11,7 @@
 
   <!-- Security Headers -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://api.github.com https://formspree.io; img-src 'self' data:; base-uri 'self'; form-action https://formspree.io;" />
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://api.github.com; img-src 'self' data:; base-uri 'self'; form-action 'self';" />
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
 
@@ -29,23 +29,67 @@
     content="Cybersecurity student, ethical hacker, and creative developer crafting digital experiences." />
   <meta name="twitter:image" content="https://tusharjadhav.dev/og-image.png" />
 
+  <!-- Theme Color & Mobile -->
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: light)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Tushar R Jadhav" />
+  <link rel="apple-touch-icon" href="/og-image.png" />
+
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Tushar R Jadhav",
-    "url": "https://tusharjadhav.dev/",
-    "sameAs": [
-      "https://github.com/sologamer9753-create",
-      "https://www.linkedin.com/in/tushar-jadhav-ba816629b/"
-    ],
-    "jobTitle": "Security Researcher & Creative Developer",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Shogun Creations"
-    },
-    "knowsAbout": ["Network Security", "Ethical Hacking", "Penetration Testing", "Three.js", "WebGL", "GSAP"]
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Tushar R Jadhav",
+        "url": "https://tusharjadhav.dev/",
+        "sameAs": [
+          "https://github.com/sologamer9753-create",
+          "https://www.linkedin.com/in/tushar-jadhav-ba816629b/"
+        ],
+        "jobTitle": "Security Researcher & Creative Developer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Shogun Creations"
+        },
+        "knowsAbout": ["Network Security", "Ethical Hacking", "Penetration Testing", "Three.js", "WebGL", "GSAP"]
+      },
+      {
+        "@type": "WebSite",
+        "url": "https://tusharjadhav.dev/",
+        "name": "Tushar R Jadhav — Security Researcher & Creative Developer",
+        "description": "Portfolio of Tushar R Jadhav — Cybersecurity student, ethical hacker, and creative developer crafting digital experiences.",
+        "publisher": {
+          "@type": "Person",
+          "name": "Tushar R Jadhav"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://tusharjadhav.dev/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "url": "https://tusharjadhav.dev/",
+        "name": "Tushar R Jadhav — Security Researcher & Creative Developer",
+        "description": "Cybersecurity student, ethical hacker, and creative developer crafting digital experiences.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "url": "https://tusharjadhav.dev/"
+        },
+        "primaryEntityOfPage": {
+          "@type": "Person",
+          "name": "Tushar R Jadhav"
+        }
+      }
+    ]
   }
   </script>
 
@@ -469,7 +513,6 @@
   </div>
 
   <script type="module" src="/main.js"></script>
-  <script src="/contact-form.js"></script>
 </body>
 
 </html>
