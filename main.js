@@ -94,9 +94,9 @@ window.addEventListener('pageshow', () => {
 });
 
 const TYPEWRITER_TEXTS = [
-  'tushar@shogun:~$ ./whoami',
-  'tushar@shogun:~$ cat /etc/passion',
-  'tushar@shogun:~$ ./hack_the_planet',
+  'tushar@zeroday:~$ ./whoami',
+  'tushar@zeroday:~$ cat /etc/passion',
+  'tushar@zeroday:~$ ./hack_the_planet',
 ];
 
 // ─── TYPEWRITER ──────────────────────────────────
@@ -283,6 +283,8 @@ function initContactForm() {
     submitBtn.disabled = true;
     submitBtn.querySelector('.btn-glitch').textContent = 'TRANSMITTING...';
 
+    let rejection = null;
+
     try {
       const formData = new FormData(form);
       const res = await fetch(form.action, {
@@ -302,10 +304,15 @@ function initContactForm() {
         submitBtn.style.background = 'var(--green)';
         form.reset();
       } else {
+        // Surface the server's reason (field validation, rate limit) instead of hiding it
+        try {
+          const data = await res.json();
+          if (data && data.error) rejection = data.error;
+        } catch (_) { /* non-JSON error body */ }
         throw new Error('Form submission failed');
       }
     } catch (err) {
-      submitBtn.querySelector('.btn-glitch').textContent = 'TRANSMISSION FAILED ✗';
+      submitBtn.querySelector('.btn-glitch').textContent = rejection || 'TRANSMISSION FAILED ✗';
       submitBtn.style.background = 'var(--red)';
       console.error('Contact form error:', err);
     }

@@ -131,7 +131,7 @@ main.js (entry)
     - **Fix**: Pause when tab hidden (`document.visibilityState`)
 
 12. **Typewriter Text Hardcoded** (main.js:32)
-    - `'tushar@shogun:~$ ./whoami'` — not configurable
+    - `'tushar@zeroday:~$ ./whoami'` — not configurable
     - **Fix**: Move to config object or data attribute
 
 13. **Skill Bar Fill Logic** (main.js:67-83)
@@ -284,7 +284,7 @@ tushar-portfolio/
 - [ ] Boot sequence completes → site visible
 - [ ] Matrix rain renders (not too bright)
 - [ ] Three.js particles morph to skull
-- [ ] Typewriter types "tushar@shogun:~$ ./whoami"
+- [ ] Typewriter types "tushar@zeroday:~$ ./whoami"
 - [ ] Scroll to About → terminal lines reveal
 - [ ] Scroll to About → stat counters animate
 - [ ] Scroll to Skills → bars fill to data-width

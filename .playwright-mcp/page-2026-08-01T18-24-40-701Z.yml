@@ -1,0 +1,196 @@
+- generic [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#hero"
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: NIGHTFALL SECURE OS v3.7.1
+      - generic [ref=e7]: "[CLASSIFIED CLEARANCE]"
+    - generic [ref=e8]: "[ 0.000000] Initializing security kernel..."
+    - generic [ref=e10]: _
+  - generic:
+    - main:
+      - navigation:
+        - generic: "[ TUSHAR ]"
+        - generic:
+          - link "~/home":
+            - /url: "#hero"
+          - link "~/about":
+            - /url: "#about"
+          - link "~/skills":
+            - /url: "#skills"
+          - link "~/projects":
+            - /url: "#projects"
+          - link "~/contact":
+            - /url: "#contact"
+      - generic:
+        - link "~/home":
+          - /url: "#hero"
+        - link "~/about":
+          - /url: "#about"
+        - link "~/skills":
+          - /url: "#skills"
+        - link "~/projects":
+          - /url: "#projects"
+        - link "~/contact":
+          - /url: "#contact"
+      - generic:
+        - generic:
+          - generic: SECURE CONNECTION ESTABLISHED
+          - heading "TUSHAR R JADHAV TUSHAR R JADHAV TUSHAR R JADHAV" [level=1]
+          - generic: tushar@nightfall:~$ █
+          - generic:
+            - generic: NETWORK SECURITY
+            - generic: //
+            - generic: ETHICAL HACKING
+            - generic: //
+            - generic: CREATIVE DEV
+          - generic:
+            - link "VIEW MISSIONS":
+              - /url: "#projects"
+            - link "ENCRYPT MESSAGE":
+              - /url: "#contact"
+        - generic: SCROLL
+      - generic:
+        - generic:
+          - generic:
+            - generic: // SECTION 01
+            - heading "ABOUT_ME ABOUT_ME ABOUT_ME" [level=2]
+          - generic:
+            - generic:
+              - generic: tushar@nightfall:~ cat profile.sys
+              - generic:
+                - paragraph: "> Initializing profile stream..."
+                - paragraph: "> Name: Tushar R Jadhav"
+                - paragraph: "> Handle: sologamer9753"
+                - paragraph: "> Focus: Security Research & Creative Development"
+                - paragraph: "> Entity: Shogun Creations (Founder)"
+                - paragraph: "> I am a cybersecurity student specializing in network security, ethical hacking, and penetration testing — while designing high-end digital experiences using Three.js, WebGL, and modern front-end technologies."
+                - paragraph: "> I analyze complex systems to find vulnerabilities and craft robust, resilient visual architectures that elevate digital products."
+                - paragraph: "> Status: ACTIVE PROTOCOL"
+                - paragraph: "> Security Clearance: LEVEL 5 — UNRESTRICTED"
+            - generic:
+              - generic:
+                - generic: VULN
+                - generic: RESEARCH TRACK
+              - generic:
+                - generic: SELF
+                - generic: TAUGHT DEV
+              - generic:
+                - generic: OPEN
+                - generic: SOURCE BUILDER
+              - generic:
+                - generic: AES-256
+                - generic: ENCRYPTED WORKFLOW
+      - generic:
+        - generic:
+          - generic:
+            - generic: // SECTION 02
+            - heading "SKILLS_ARSENAL SKILLS_ARSENAL SKILLS_ARSENAL" [level=2]
+          - generic:
+            - generic:
+              - heading "> SECURITY & OFFENSE" [level=3]
+              - generic:
+                - generic: Network Security
+                - paragraph: TCP/IP, Firewalls, IDS/IPS, Wireshark, Packet Analysis
+              - generic:
+                - generic: Ethical Hacking
+                - paragraph: Recon, Exploitation, Social Engineering, OSINT
+              - generic:
+                - generic: Penetration Testing
+                - paragraph: Kali Linux, Metasploit, Burp Suite, Nmap
+              - generic:
+                - generic: Cryptography
+                - paragraph: Encryption, Hashing, PKI, SSL/TLS, Steganography
+            - generic:
+              - heading "> DEVELOPMENT & CREATIVE MASTER" [level=3]
+              - generic:
+                - generic: Three.js / WebGL
+                - paragraph: Particles, Shaders, 3D Scenes, Post-Processing
+              - generic:
+                - generic: GSAP / Animations
+                - paragraph: ScrollTrigger, Timelines, Morphing, Micro-Interactions
+              - generic:
+                - generic: HTML / CSS / JS
+                - paragraph: Vanilla mastery, Responsive Design, CSS Architecture
+              - generic:
+                - generic: React / Next.js
+                - paragraph: Components, Hooks, SSR, State Management
+      - generic:
+        - generic:
+          - generic:
+            - generic: // SECTION 03
+            - heading "MISSION_FILES MISSION_FILES MISSION_FILES" [level=2]
+          - generic: FETCHING FROM GITHUB API...
+      - generic:
+        - generic:
+          - generic:
+            - generic: // SECTION 04
+            - heading "ENCRYPT_MESSAGE ENCRYPT_MESSAGE ENCRYPT_MESSAGE" [level=2]
+          - generic:
+            - generic:
+              - generic: secure_transmission.exe
+              - generic:
+                - generic:
+                  - generic: "$ SENDER_ID:"
+                  - textbox "Your name..."
+                - generic:
+                  - generic: "$ ENCRYPTION_KEY:"
+                  - textbox "your@email.com"
+                - generic:
+                  - generic: "$ TRANSMISSION_BODY:"
+                  - textbox "Type your encrypted message..."
+                - button "ENCRYPT & TRANSMIT"
+            - generic:
+              - heading "> DIRECT_CHANNELS" [level=3]
+              - link "$ git clone https://github.com/sologamer9753-create":
+                - /url: https://github.com/sologamer9753-create
+                - generic: $
+                - generic: git clone
+                - generic: https://github.com/sologamer9753-create
+              - link "$ curl linkedin.com/in/tushar-jadhav":
+                - /url: https://www.linkedin.com/in/tushar-jadhav-ba816629b/
+                - generic: $
+                - generic: curl
+                - generic: linkedin.com/in/tushar-jadhav
+              - generic:
+                - generic: $
+                - generic: ssh
+                - generic: tushar@shogun-creations.in
+              - link "$ sendmail sologamer9753@gmail.com":
+                - /url: mailto:sologamer9753@gmail.com
+                - generic: $
+                - generic: sendmail
+                - generic: sologamer9753@gmail.com
+              - generic:
+                - generic: $
+                - generic: call
+                - generic: +91 7090771077
+              - generic:
+                - generic: "SYSTEM: ONLINE & PROTECTED"
+                - generic: "ENCRYPTION: AES-256-GCM"
+                - generic: "UPTIME: 99.97% PROTOCOL"
+      - generic:
+        - generic:
+          - generic: < BUILT BY TUSHAR R JADHAV />
+          - generic: SECURITY IS NOT A PRODUCT, IT'S A PROCESS.
+          - generic: v3.7.1 — ALL SYSTEMS NOMINAL
+    - dialog:
+      - generic:
+        - generic: tushar@nightfall:~
+        - generic:
+          - button: —
+          - button: ✕
+      - generic:
+        - generic:
+          - paragraph: Welcome to Tushar's security terminal.
+          - paragraph: Type help for available commands.
+          - paragraph
+        - generic:
+          - generic: tushar@nightfall:~$
+          - textbox [active]
+    - button "Open floating terminal":
+      - generic: ">_"
+  - generic:
+    - generic: ⚡
+    - generic: SYSTEM OVERRIDE DETECTED
+    - generic: "Access Level: 1337 — High Command Granted."

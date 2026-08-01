@@ -229,6 +229,13 @@ export function initCyberCat(outputEl) {
 
   let animationId;
   function renderLoop() {
+    // Pause the loop while the tab is hidden (RAF is throttled anyway, but this
+    // also leaves animationId null so the visibilitychange handler knows to restart)
+    if (document.hidden) {
+      animationId = null;
+      return;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     drawPixelFrame(FRAMES[currentFrame], catColor);
@@ -263,6 +270,19 @@ export function initCyberCat(outputEl) {
 
   renderLoop();
 
+  // Stop rendering when the tab is hidden (battery/CPU), restart on return
+  const onVisibilityChange = () => {
+    if (document.hidden) {
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    } else if (animationId === null) {
+      renderLoop();
+    }
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
+
   // Speech Bubble setup
   const bubble = document.createElement('div');
   bubble.style.position = 'absolute';
@@ -292,6 +312,9 @@ export function initCyberCat(outputEl) {
     "root access granted, nya!",
     "firewall is purrfect~",
     "installing catnip.exe...",
+    "*purr purr purr...*",
+    "*happy cyber cat noises*",
+    "pet accepted! ♥",
   ];
 
   let bubbleTimeout;
@@ -301,6 +324,10 @@ export function initCyberCat(outputEl) {
     // Quick glitch flash
     catColor = '#00e5ff'; // Cyan glitch
     currentFrame = 'happy';
+    
+    // Spawn some hearts for the petting interaction
+    spawnHeart();
+    spawnHeart();
     
     // Change bubble color dynamically based on mode
     const msgColor = isCuteMode ? '#ff66b2' : 'var(--green)';
@@ -343,6 +370,7 @@ export function initCyberCat(outputEl) {
     if (cuteModeInterval) clearInterval(cuteModeInterval);
     if (cuteModeTimeout) clearTimeout(cuteModeTimeout);
     document.removeEventListener('cyber-cat-hearts', onCuteMode);
+    document.removeEventListener('visibilitychange', onVisibilityChange);
     container.remove();
   };
 }

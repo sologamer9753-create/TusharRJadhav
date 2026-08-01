@@ -1,0 +1,273 @@
+- generic [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#hero"
+  - generic [ref=e12]:
+    - main [ref=e13]:
+      - navigation [ref=e14]:
+        - generic [ref=e15]: "[ TUSHAR ]"
+        - generic [ref=e16]:
+          - link "~/home" [ref=e17] [cursor=pointer]:
+            - /url: "#hero"
+          - link "~/about" [ref=e18] [cursor=pointer]:
+            - /url: "#about"
+          - link "~/skills" [ref=e19] [cursor=pointer]:
+            - /url: "#skills"
+          - link "~/projects" [ref=e20] [cursor=pointer]:
+            - /url: "#projects"
+          - link "~/contact" [ref=e21] [cursor=pointer]:
+            - /url: "#contact"
+      - generic:
+        - link "~/home":
+          - /url: "#hero"
+        - link "~/about":
+          - /url: "#about"
+        - link "~/skills":
+          - /url: "#skills"
+        - link "~/projects":
+          - /url: "#projects"
+        - link "~/contact":
+          - /url: "#contact"
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]: SECURE CONNECTION ESTABLISHED
+          - heading "TUSHAR R JADHAV TUSHAR R JADHAV TUSHAR R JADHAV" [level=1] [ref=e27]
+          - generic [ref=e28]: tushar@shogun:~$ tushar@shogun:~$ cat /etc/passion █
+          - generic [ref=e29]:
+            - generic [ref=e30]: NETWORK SECURITY
+            - generic [ref=e31]: //
+            - generic [ref=e32]: ETHICAL HACKING
+            - generic [ref=e33]: //
+            - generic [ref=e34]: CREATIVE DEV
+          - generic [ref=e35]:
+            - link "VIEW MISSIONS" [ref=e36] [cursor=pointer]:
+              - /url: "#projects"
+            - link "ENCRYPT MESSAGE" [ref=e38] [cursor=pointer]:
+              - /url: "#contact"
+        - generic [ref=e40]: SCROLL
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - generic [ref=e46]: // SECTION 01
+          - heading "ABOUT_ME ABOUT_ME ABOUT_ME" [level=2] [ref=e47]
+        - generic [ref=e48]:
+          - generic [ref=e49]:
+            - generic [ref=e50]: tushar@shogun:~ cat profile.sys
+            - generic [ref=e56]:
+              - paragraph [ref=e57]: "> Initializing profile stream..."
+              - paragraph [ref=e58]: "> Name: Tushar R Jadhav"
+              - paragraph [ref=e59]: "> Handle: sologamer9753"
+              - paragraph [ref=e60]: "> Focus: Security Research & Creative Development"
+              - paragraph [ref=e61]: "> Entity: Shogun Creations (Founder)"
+              - paragraph [ref=e62]: "> I am a cybersecurity student specializing in network security, ethical hacking, and penetration testing — while designing high-end digital experiences using Three.js, WebGL, and modern front-end technologies."
+              - paragraph [ref=e63]: "> I analyze complex systems to find vulnerabilities and craft robust, resilient visual architectures that elevate digital products."
+              - paragraph [ref=e64]: "> Status: ACTIVE PROTOCOL"
+              - paragraph [ref=e65]: "> Security Clearance: LEVEL 5 — UNRESTRICTED"
+          - generic [ref=e66]:
+            - generic [ref=e67]:
+              - generic [ref=e71]: VULN
+              - generic [ref=e72]: RESEARCH TRACK
+            - generic [ref=e73]:
+              - generic [ref=e78]: SELF
+              - generic [ref=e79]: TAUGHT DEV
+            - generic [ref=e80]:
+              - generic [ref=e85]: OPEN
+              - generic [ref=e86]: SOURCE BUILDER
+            - generic [ref=e87]:
+              - generic [ref=e92]: AES-256
+              - generic [ref=e93]: ENCRYPTED WORKFLOW
+      - generic [ref=e95]:
+        - generic [ref=e96]:
+          - generic [ref=e97]: // SECTION 02
+          - heading "SKILLS_ARSENAL SKILLS_ARSENAL SKILLS_ARSENAL" [level=2] [ref=e98]
+        - generic [ref=e99]:
+          - generic [ref=e100]:
+            - heading "> SECURITY & OFFENSE" [level=3] [ref=e101]
+            - generic [ref=e102]:
+              - generic [ref=e103]: Network Security
+              - paragraph [ref=e105]: TCP/IP, Firewalls, IDS/IPS, Wireshark, Packet Analysis
+            - generic [ref=e106]:
+              - generic [ref=e107]: Ethical Hacking
+              - paragraph [ref=e109]: Recon, Exploitation, Social Engineering, OSINT
+            - generic [ref=e110]:
+              - generic [ref=e111]: Penetration Testing
+              - paragraph [ref=e113]: Kali Linux, Metasploit, Burp Suite, Nmap
+            - generic [ref=e114]:
+              - generic [ref=e115]: Cryptography
+              - paragraph [ref=e117]: Encryption, Hashing, PKI, SSL/TLS, Steganography
+          - generic [ref=e118]:
+            - heading "> DEVELOPMENT & CREATIVE MASTER" [level=3] [ref=e119]
+            - generic [ref=e120]:
+              - generic [ref=e121]: Three.js / WebGL
+              - paragraph [ref=e123]: Particles, Shaders, 3D Scenes, Post-Processing
+            - generic [ref=e124]:
+              - generic [ref=e125]: GSAP / Animations
+              - paragraph [ref=e127]: ScrollTrigger, Timelines, Morphing, Micro-Interactions
+            - generic [ref=e128]:
+              - generic [ref=e129]: HTML / CSS / JS
+              - paragraph [ref=e131]: Vanilla mastery, Responsive Design, CSS Architecture
+            - generic [ref=e132]:
+              - generic [ref=e133]: React / Next.js
+              - paragraph [ref=e135]: Components, Hooks, SSR, State Management
+      - generic [ref=e137]:
+        - generic [ref=e138]:
+          - generic [ref=e139]: // SECTION 03
+          - heading "MISSION_FILES MISSION_FILES MISSION_FILES" [level=2] [ref=e140]
+        - generic [ref=e141]:
+          - generic [ref=e142]:
+            - generic [ref=e143]: VIBERANTPORTFOLIO
+            - paragraph [ref=e146]: Viberant Portfolio — vibrant personality-driven portfolio with emoji accents, playful tone, and colorful tech stack grid.
+            - generic [ref=e147]:
+              - generic [ref=e148]: JavaScript
+              - generic [ref=e150]: Updated Jul 22, 2026
+            - generic [ref=e151]:
+              - link "SOURCE" [ref=e152] [cursor=pointer]:
+                - /url: https://github.com/sologamer9753-create/VIBERANTportfolio
+              - link "DEMO" [ref=e153] [cursor=pointer]:
+                - /url: https://viberan-tportfolio.vercel.app/
+          - generic [ref=e154]:
+            - generic [ref=e155]: MINILUXPORTFOLIO
+            - paragraph [ref=e158]: MiniLux Portfolio — minimal luxury portfolio with refined typography, monochromatic elegance, and subtle micro-interactions.
+            - generic [ref=e159]:
+              - generic [ref=e160]: JavaScript
+              - generic [ref=e162]: Updated Jul 22, 2026
+            - generic [ref=e163]:
+              - link "SOURCE" [ref=e164] [cursor=pointer]:
+                - /url: https://github.com/sologamer9753-create/MINILUXportfolio
+              - link "DEMO" [ref=e165] [cursor=pointer]:
+                - /url: https://minilu-xportfolio.vercel.app/
+          - generic [ref=e166]:
+            - generic [ref=e167]: CYBERPUNKPORTFOLIO
+            - paragraph [ref=e170]: Cyberpunk Portfolio — system-terminal themed portfolio with ASCII art, boot sequence UI, and neon grid aesthetics.
+            - generic [ref=e171]:
+              - generic [ref=e172]: JavaScript
+              - generic [ref=e174]: Updated Jul 22, 2026
+            - generic [ref=e175]:
+              - link "SOURCE" [ref=e176] [cursor=pointer]:
+                - /url: https://github.com/sologamer9753-create/CYBERPUNKportfolio
+              - link "DEMO" [ref=e177] [cursor=pointer]:
+                - /url: https://cyberpun-kportfolio.vercel.app/
+          - generic [ref=e178]:
+            - generic [ref=e179]: NEBULAPORTFOLIO
+            - paragraph [ref=e182]: Nebula Portfolio — clean dark-themed portfolio with gradient accents, smooth scroll reveals, and minimal professional design.
+            - generic [ref=e183]:
+              - generic [ref=e184]: JavaScript
+              - generic [ref=e186]: Updated Jul 22, 2026
+            - generic [ref=e187]:
+              - link "SOURCE" [ref=e188] [cursor=pointer]:
+                - /url: https://github.com/sologamer9753-create/NEBULAportfolio
+              - link "DEMO" [ref=e189] [cursor=pointer]:
+                - /url: https://nebul-aportfolio.vercel.app/
+          - generic [ref=e190]:
+            - generic [ref=e191]: FIRSTTYPE
+            - paragraph [ref=e194]: Keystone Estates — Real estate community portal with industrial dark aesthetic, parallax scrolling, and counter animations.
+            - generic [ref=e195]:
+              - generic [ref=e196]: HTML
+              - generic [ref=e198]: Updated Jul 22, 2026
+            - generic [ref=e199]:
+              - link "SOURCE" [ref=e200] [cursor=pointer]:
+                - /url: https://github.com/sologamer9753-create/firsttype
+              - link "DEMO" [ref=e201] [cursor=pointer]:
+                - /url: https://firsttype.vercel.app/
+          - generic [ref=e202]:
+            - generic [ref=e203]: SECONDONE
+            - paragraph [ref=e206]: Velora Estates — Premium real estate platform with dark industrial design, brass accents, infinite marquee, and bold typography.
+            - generic [ref=e207]:
+              - generic [ref=e208]: HTML
+              - generic [ref=e210]: Updated Jul 22, 2026
+            - generic [ref=e211]:
+              - link "SOURCE" [ref=e212] [cursor=pointer]:
+                - /url: https://github.com/sologamer9753-create/secondone
+              - link "DEMO" [ref=e213] [cursor=pointer]:
+                - /url: https://secondone-seven.vercel.app/
+          - generic [ref=e214]:
+            - generic [ref=e215]: SAMEEDIT
+            - paragraph [ref=e218]: thmwebsite but the modified one with chweckings
+            - generic [ref=e219]:
+              - generic [ref=e220]: HTML
+              - generic [ref=e222]: Updated Jul 22, 2026
+            - generic [ref=e223]:
+              - link "SOURCE" [ref=e224] [cursor=pointer]:
+                - /url: https://github.com/sologamer9753-create/sameedit
+              - link "DEMO" [ref=e225] [cursor=pointer]:
+                - /url: https://sameedit.vercel.app/
+          - generic [ref=e226]:
+            - generic [ref=e227]: PORTFOLIOWEB
+            - paragraph [ref=e230]: Shogun Creations portfolio — creative agency site with dark industrial design, scroll animations, and responsive layout.
+            - generic [ref=e231]:
+              - generic [ref=e232]: CSS
+              - generic [ref=e234]: Updated Jul 19, 2026
+            - generic [ref=e235]:
+              - link "SOURCE" [ref=e236] [cursor=pointer]:
+                - /url: https://github.com/sologamer9753-create/portfolioweb
+              - link "DEMO" [ref=e237] [cursor=pointer]:
+                - /url: https://portfolioweb-theta-drab.vercel.app/
+      - generic [ref=e239]:
+        - generic [ref=e240]:
+          - generic [ref=e241]: // SECTION 04
+          - heading "ENCRYPT_MESSAGE ENCRYPT_MESSAGE ENCRYPT_MESSAGE" [level=2] [ref=e242]
+        - generic [ref=e243]:
+          - generic [ref=e244]:
+            - generic [ref=e245]: secure_transmission.exe
+            - generic [ref=e251]:
+              - generic [ref=e252]:
+                - generic [ref=e253]: "$ SENDER_ID:"
+                - textbox "Your name..." [ref=e254]
+              - generic [ref=e255]:
+                - generic [ref=e256]: "$ ENCRYPTION_KEY:"
+                - textbox "your@email.com" [ref=e257]
+              - generic [ref=e258]:
+                - generic [ref=e259]: "$ TRANSMISSION_BODY:"
+                - textbox "Type your encrypted message..." [ref=e260]
+              - button "ENCRYPT & TRANSMIT" [ref=e261] [cursor=pointer]
+          - generic [ref=e263]:
+            - heading "> DIRECT_CHANNELS" [level=3] [ref=e264]
+            - link "$ git clone https://github.com/sologamer9753-create" [ref=e265] [cursor=pointer]:
+              - /url: https://github.com/sologamer9753-create
+              - generic [ref=e266]: $
+              - generic [ref=e267]: git clone
+              - generic [ref=e268]: https://github.com/sologamer9753-create
+            - link "$ curl linkedin.com/in/tushar-jadhav" [ref=e269] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/tushar-jadhav-ba816629b/
+              - generic [ref=e270]: $
+              - generic [ref=e271]: curl
+              - generic [ref=e272]: linkedin.com/in/tushar-jadhav
+            - generic [ref=e273] [cursor=pointer]:
+              - generic [ref=e274]: $
+              - generic [ref=e275]: ssh
+              - generic [ref=e276]: tushar@shogun-creations.in
+            - link "$ sendmail sologamer9753@gmail.com" [ref=e277] [cursor=pointer]:
+              - /url: mailto:sologamer9753@gmail.com
+              - generic [ref=e278]: $
+              - generic [ref=e279]: sendmail
+              - generic [ref=e280]: sologamer9753@gmail.com
+            - generic [ref=e281] [cursor=pointer]:
+              - generic [ref=e282]: $
+              - generic [ref=e283]: call
+              - generic [ref=e284]: +91 7090771077
+            - generic [ref=e285]:
+              - generic [ref=e286]: "SYSTEM: ONLINE & PROTECTED"
+              - generic [ref=e289]: "ENCRYPTION: AES-256-GCM"
+              - generic [ref=e292]: "UPTIME: 99.97% PROTOCOL"
+      - generic [ref=e296]:
+        - generic [ref=e297]: < BUILT BY TUSHAR R JADHAV />
+        - generic [ref=e298]: SECURITY IS NOT A PRODUCT, IT'S A PROCESS.
+        - generic [ref=e299]: v3.7.1 — ALL SYSTEMS NOMINAL
+    - dialog:
+      - generic:
+        - generic: tushar@shogun:~
+        - generic:
+          - button: —
+          - button: ✕
+      - generic:
+        - generic:
+          - paragraph: Welcome to Tushar's security terminal.
+          - paragraph: Type help for available commands.
+          - paragraph
+        - generic:
+          - generic: tushar@shogun:~$
+          - textbox [active]
+    - button "Open floating terminal" [ref=e300] [cursor=pointer]:
+      - generic [ref=e301]: ">_"
+  - generic:
+    - generic: ⚡
+    - generic: SYSTEM OVERRIDE DETECTED
+    - generic: "Access Level: 1337 — High Command Granted."

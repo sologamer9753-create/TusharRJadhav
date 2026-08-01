@@ -52,10 +52,10 @@ const COMMANDS = {
   clear: () => 'CLEAR',
   date: () => [new Date().toString()],
   uname: () => [
-    'SHOGUN SECURE OS v3.7.1',
-    'Kernel: 6.2.0-shogun',
+    'ZERODAY SECURE OS v3.7.1',
+    'Kernel: 6.2.0-zeroday',
     'Arch: x86_64',
-    'Shell: shogun-terminal/1.0',
+    'Shell: zeroday-terminal/1.0',
   ],
   sudo: () => [
     'Nice try. 🛡️',
@@ -193,7 +193,7 @@ export function initTerminal() {
       input.value = '';
 
       // Add command line to output
-      addLine(`tushar@shogun:~$ ${cmd}`, 'cyan');
+      addLine(`tushar@zeroday:~$ ${cmd}`, 'cyan');
 
       if (!cmd) return;
 

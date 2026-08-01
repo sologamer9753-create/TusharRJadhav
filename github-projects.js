@@ -49,7 +49,8 @@ export async function fetchProjects() {
       const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=10`, { headers });
       if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
 
-      const repos = (await res.json()).filter(repo => !repo.fork);
+      // Exclude forks, and this repo itself (it hosts the portfolio, not a project to showcase)
+      const repos = (await res.json()).filter(repo => !repo.fork && repo.name !== 'TusharRJadhav');
 
       if (repos.length === 0) {
         grid.innerHTML = '<div class="loading-projects">NO MISSIONS FOUND</div>';
@@ -116,6 +117,15 @@ const LANGUAGE_COLORS = {
 
 const KNOWN_LANGS = new Set(Object.keys(LANGUAGE_COLORS));
 
+// Escape user-controlled values before injecting into innerHTML.
+// Repo names/descriptions are owner-controlled, but descriptions are free text —
+// a stray <, >, or quote would otherwise break the markup.
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, (c) => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
 function hashColor(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
@@ -145,21 +155,21 @@ function createProjectCard(repo, index) {
   card.innerHTML = `
     <div class="project-header">
       <div class="project-status ${isFork ? 'forked' : ''}"></div>
-      <span class="project-name">${name.toUpperCase()}</span>
+      <span class="project-name">${esc(name.toUpperCase())}</span>
     </div>
-    <p class="project-desc">${desc}</p>
+    <p class="project-desc">${esc(desc)}</p>
     <div class="project-meta">
       <span class="project-lang">
         <span class="lang-dot" style="background: ${KNOWN_LANGS.has(lang) ? LANGUAGE_COLORS[lang] : hashColor(lang)}"></span>
-        ${lang}
+        ${esc(lang)}
       </span>
       ${stars > 0 ? `<span class="project-stat">★ ${stars}</span>` : ''}
       ${forks > 0 ? `<span class="project-stat">⑂ ${forks}</span>` : ''}
       <span class="project-stat">Updated ${updated}</span>
     </div>
     <div class="project-links">
-      <a href="${repoUrl}" target="_blank" rel="noopener" class="project-link">SOURCE</a>
-      ${demoUrl ? `<a href="${demoUrl}" target="_blank" rel="noopener" class="project-link demo">DEMO</a>` : ''}
+      <a href="${esc(repoUrl)}" target="_blank" rel="noopener" class="project-link">SOURCE</a>
+      ${demoUrl ? `<a href="${esc(demoUrl)}" target="_blank" rel="noopener" class="project-link demo">DEMO</a>` : ''}
     </div>
   `;
 

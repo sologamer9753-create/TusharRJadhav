@@ -2067,7 +2067,7 @@ html:not([visibility-state="visible"]) #scanline {
     right: 8px;
     left: 8px;
     bottom: 60px;
-    height: 240px;
+    height: 380px;
     border-radius: 6px;
   }
 
@@ -2076,11 +2076,12 @@ html:not([visibility-state="visible"]) #scanline {
   }
 
   .ft-output {
-    max-height: 140px;
+    max-height: none;
   }
 
   .cyber-cat {
-    display: none; /* Hide on very small screens */
+    right: 5px;
+    bottom: 25px;
   }
 
   .terminal-toggle {
