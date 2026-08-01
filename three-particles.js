@@ -69,9 +69,9 @@ export function initThreeParticles() {
   const isMobile = window.innerWidth < 768;
   const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
   const isLowEnd = navigator.hardwareConcurrency <= 4 || navigator.deviceMemory <= 4;
-  
-  // Disable on very small screens or low-end devices
-  if (prefersReducedMotion || (isMobile && isLowEnd) || window.innerWidth < 400) {
+
+  // Reduced motion is an accessibility preference — honor it
+  if (prefersReducedMotion) {
     container.style.display = 'none';
     return () => { };
   }
@@ -91,10 +91,10 @@ export function initThreeParticles() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
   container.appendChild(renderer.domElement);
 
-  // Adjust particle count based on device capability
+  // Adjust particle count based on device capability — never fully disable on mobile
   let PARTICLE_COUNT;
   if (isMobile) {
-    PARTICLE_COUNT = isLowEnd ? 300 : 500;
+    PARTICLE_COUNT = isLowEnd ? 200 : 400;
   } else if (isTablet) {
     PARTICLE_COUNT = 800;
   } else {
