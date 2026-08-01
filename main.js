@@ -285,8 +285,12 @@ function initContactForm() {
       const formData = new FormData(form);
       const res = await fetch(form.action, {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          message: formData.get('message'),
+        })
       });
 
       if (res.ok) {
