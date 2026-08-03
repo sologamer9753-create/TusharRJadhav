@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════
 // CYBER CAT — A cute, tiny pixel art mascot for the terminal
 // ═══════════════════════════════════════════════════
+import * as THREE from 'three';
 
 const PIXEL = 5;
 const COLS = 16;
@@ -208,10 +209,205 @@ function compileFrames(artObj) {
 
 const FRAMES = compileFrames(ART);
 
+function initCrownThree(parentContainer) {
+  const crownDom = document.createElement('div');
+  crownDom.className = 'cyber-cat-crown-container';
+  crownDom.style.position = 'absolute';
+  crownDom.style.top = '-5px';
+  crownDom.style.left = '50%';
+  crownDom.style.transform = 'translateX(-50%)';
+  crownDom.style.width = '80px';
+  crownDom.style.height = '55px';
+  crownDom.style.pointerEvents = 'none';
+  crownDom.style.zIndex = '5';
+  crownDom.style.filter = 'drop-shadow(0 0 5px rgba(0, 255, 65, 0.75))';
+  parentContainer.appendChild(crownDom);
+
+  let crownRenderer = null;
+  let crownScene = null;
+  let crownCamera = null;
+  let crownPoints = null;
+  let crownMaterial = null;
+  let crownGeometry = null;
+
+  try {
+    crownScene = new THREE.Scene();
+    crownCamera = new THREE.PerspectiveCamera(45, 80 / 55, 0.1, 100);
+    crownCamera.position.set(0, 0.2, 3.2);
+
+    crownRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    crownRenderer.setSize(80, 55);
+    crownRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    crownDom.appendChild(crownRenderer.domElement);
+
+    const pointsList = [];
+    const colorsList = [];
+    const sizesList = [];
+
+    const R = 0.75;
+    const numBase = 40;
+    const numPeaks = 5;
+    const hBand = 0.18;
+    const hPeak = 0.7;
+
+    const addP = (x, y, z, r, g, b, size) => {
+      pointsList.push(x, y, z);
+      colorsList.push(r, g, b);
+      sizesList.push(size);
+    };
+
+    // 1. Base Ring & Rim (All Cyber Neon Green Palette)
+    for (let i = 0; i < numBase; i++) {
+      const a = (i / numBase) * Math.PI * 2;
+      const ca = Math.cos(a);
+      const sa = Math.sin(a);
+
+      addP(ca * R, -0.2, sa * R, 0.0, 1.0, 0.25, 0.22);
+      addP(ca * R, -0.2 + hBand, sa * R, 0.15, 1.0, 0.35, 0.25);
+      
+      if (i % 2 === 0) {
+        addP(ca * (R * 1.02), -0.2 + hBand * 0.5, sa * (R * 1.02), 0.0, 0.95, 0.65, 0.2);
+      }
+    }
+
+    // 2. Crown Peaks/Spikes (5 3D Cyber Spikes)
+    const steps = 10;
+    for (let k = 0; k < numPeaks; k++) {
+      const peakAngle = (k / numPeaks) * Math.PI * 2;
+      const nextPeakAngle = ((k + 1) / numPeaks) * Math.PI * 2;
+      const valleyAngle = (peakAngle + nextPeakAngle) / 2;
+
+      const px = Math.cos(peakAngle) * (R * 1.05);
+      const py = hPeak;
+      const pz = Math.sin(peakAngle) * (R * 1.05);
+
+      const vx = Math.cos(valleyAngle) * R;
+      const vy = -0.2 + hBand;
+      const vz = Math.sin(valleyAngle) * R;
+
+      for (let s = 0; s <= steps; s++) {
+        const t = s / steps;
+        const x = vx + (px - vx) * t;
+        const y = vy + (py - vy) * t;
+        const z = vz + (pz - vz) * t;
+
+        if (s === steps) {
+          for (let j = 0; j < 4; j++) {
+            const ox = (Math.random() - 0.5) * 0.06;
+            const oy = (Math.random() - 0.5) * 0.06;
+            const oz = (Math.random() - 0.5) * 0.06;
+            const isCyan = k % 2 === 0;
+            addP(x + ox, y + oy, z + oz, isCyan ? 0.0 : 0.2, isCyan ? 1.0 : 1.0, isCyan ? 0.8 : 0.4, 0.35);
+          }
+        } else {
+          addP(x, y, z, 0.0, 1.0, 0.25, 0.22);
+        }
+      }
+
+      const nextVx = Math.cos(nextPeakAngle) * R;
+      const nextVy = -0.2 + hBand;
+      const nextVz = Math.sin(nextPeakAngle) * R;
+
+      for (let s = 1; s < steps; s++) {
+        const t = s / steps;
+        const x = px + (nextVx - px) * t;
+        const y = py + (nextVy - py) * t;
+        const z = pz + (nextVz - pz) * t;
+        addP(x, y, z, 0.0, 0.95, 0.45, 0.22);
+      }
+    }
+
+    // 3. Floating Sparkles around Crown (Cyber Green/Mint)
+    for (let i = 0; i < 30; i++) {
+      const spR = R * (1.1 + Math.random() * 0.4);
+      const spA = Math.random() * Math.PI * 2;
+      const spY = -0.2 + Math.random() * 1.1;
+      const cMix = Math.random();
+      let r = 0.0, g = 1.0, b = 0.25;
+      if (cMix < 0.33) { r = 0.0; g = 0.95; b = 0.75; }
+      else if (cMix < 0.66) { r = 0.2; g = 1.0; b = 0.4; }
+      addP(Math.cos(spA) * spR, spY, Math.sin(spA) * spR, r, g, b, 0.18 + Math.random() * 0.1);
+    }
+
+    crownGeometry = new THREE.BufferGeometry();
+    crownGeometry.setAttribute('position', new THREE.Float32BufferAttribute(pointsList, 3));
+    crownGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colorsList, 3));
+    crownGeometry.setAttribute('size', new THREE.Float32BufferAttribute(sizesList, 1));
+
+    const vertexShader = `
+      attribute float size;
+      varying vec3 vColor;
+      void main() {
+        vColor = color;
+        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        gl_PointSize = max(2.0, size * (50.0 / -mvPosition.z));
+        gl_Position = projectionMatrix * mvPosition;
+      }
+    `;
+
+    const fragmentShader = `
+      uniform float uTime;
+      varying vec3 vColor;
+      void main() {
+        vec2 uv = gl_PointCoord - vec2(0.5);
+        float d = length(uv);
+        float alpha = 1.0 - smoothstep(0.35, 0.5, d);
+        float pulse = 0.85 + 0.15 * sin(uTime * 4.0 + gl_FragCoord.x * 0.1);
+        gl_FragColor = vec4(vColor * pulse, alpha * 0.85);
+      }
+    `;
+
+    crownMaterial = new THREE.ShaderMaterial({
+      uniforms: { uTime: { value: 0 } },
+      vertexShader,
+      fragmentShader,
+      vertexColors: true,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+
+    crownPoints = new THREE.Points(crownGeometry, crownMaterial);
+    crownScene.add(crownPoints);
+
+  } catch (e) {
+    console.warn('Three.js crown init error:', e);
+  }
+
+  let crownTime = 0;
+  function updateCrown(isCute) {
+    if (!crownRenderer || !crownScene || !crownCamera || !crownPoints) return;
+    
+    crownTime += isCute ? 0.025 : 0.015;
+    if (crownMaterial) crownMaterial.uniforms.uTime.value = crownTime;
+
+    crownPoints.rotation.y = crownTime * (isCute ? 1.2 : 0.7);
+    crownPoints.rotation.x = Math.sin(crownTime * 0.6) * 0.12 + 0.18;
+    crownPoints.rotation.z = Math.cos(crownTime * 0.8) * 0.08;
+    crownPoints.position.y = Math.sin(crownTime * 2.2) * 0.07 + 0.02;
+
+    crownRenderer.render(crownScene, crownCamera);
+  }
+
+  function destroyCrown() {
+    if (crownGeometry) crownGeometry.dispose();
+    if (crownMaterial) crownMaterial.dispose();
+    if (crownRenderer) {
+      crownRenderer.dispose();
+      crownRenderer.domElement.remove();
+    }
+    crownDom.remove();
+  }
+
+  return { updateCrown, destroyCrown };
+}
+
 export function initCyberCat(outputEl) {
   const container = document.createElement('div');
   container.className = 'cyber-cat'; 
   // Base CSS handles float, stickiness, z-index, and pointer-events.
+
+  const crown = initCrownThree(container);
 
   const canvas = document.createElement('canvas');
   // Extra space for floating hearts to not clip
@@ -330,6 +526,7 @@ export function initCyberCat(outputEl) {
     
     drawPixelFrame(FRAMES[currentFrame], catColor);
     drawHearts();
+    crown?.updateCrown(isCuteMode);
     
     tickCount++;
     
@@ -487,6 +684,7 @@ export function initCyberCat(outputEl) {
     cancelAnimationFrame(animationId);
     if (cuteModeInterval) clearInterval(cuteModeInterval);
     if (cuteModeTimeout) clearTimeout(cuteModeTimeout);
+    crown?.destroyCrown();
     document.removeEventListener('cyber-cat-hearts', onCuteMode);
     document.removeEventListener('visibilitychange', onVisibilityChange);
     container.remove();
